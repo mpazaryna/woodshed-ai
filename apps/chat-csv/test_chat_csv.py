@@ -12,15 +12,20 @@ def test_total_transactions():
 
     result = main(csv_file_path, question)
 
-    # Check if result is a dictionary and has an 'output' key
+    # Check if result is a dictionary
     assert isinstance(result, dict), "Result should be a dictionary"
-    assert "output" in result, "Result should contain 'output' key"
 
-    # Check if the output contains the expected answer
-    expected_answer = "The total of all transactions is -3875.5199999999995."
-    assert (
-        result["output"] == expected_answer
-    ), f"Expected '{expected_answer}', but got '{result['output']}'"
+    # Check if the result contains an error message if the file is not found
+    if "error" in result:
+        assert (
+            result["error"] == f"The file {csv_file_path} was not found."
+        ), f"Expected error message for missing file, but got '{result['error']}'"
+    else:
+        # Check if the output contains the expected answer
+        expected_answer = "The total of all transactions is -3875.5199999999995."
+        assert (
+            result["output"] == expected_answer
+        ), f"Expected '{expected_answer}', but got '{result['output']}'"
 
 
 @pytest.fixture

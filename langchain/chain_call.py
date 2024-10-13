@@ -1,7 +1,6 @@
-from dotenv import find_dotenv, load_dotenv
-from langchain.chains import ConversationChain, LLMChain
 from langchain.prompts import PromptTemplate
 from langchain_openai import OpenAI
+
 
 def chain_demo():
     llm = OpenAI()
@@ -11,7 +10,7 @@ def chain_demo():
     )
 
     chain = prompt | llm
-    return chain.invoke("AI Chatbots for Podiatry Offices")
+    return chain.invoke({"product": "AI Chatbots for Podiatry Offices"})
 
 
 if __name__ == "__main__":
