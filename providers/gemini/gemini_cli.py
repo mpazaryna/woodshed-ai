@@ -31,22 +31,21 @@ Environment Variables:
 
 """
 
-import os
-import time
 import logging
-import threading
+import os
 import sys
+import threading
+import time
+
 import google.generativeai as genai
 
 # Set up logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('gemini.log'),
-        logging.StreamHandler()
-    ]
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler("logs/gemini.log"), logging.StreamHandler()],
 )
+
 
 def configure_gemini():
     """
@@ -64,6 +63,7 @@ def configure_gemini():
         raise EnvironmentError("GOOGLE_API_KEY environment variable is not set")
     genai.configure(api_key=API_KEY)
     logging.info("Gemini API configured")
+
 
 def get_model():
     """
@@ -88,9 +88,18 @@ def get_model():
 
     safety_settings = [
         {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-        {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-        {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-        {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
+        {
+            "category": "HARM_CATEGORY_HATE_SPEECH",
+            "threshold": "BLOCK_MEDIUM_AND_ABOVE",
+        },
+        {
+            "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+            "threshold": "BLOCK_MEDIUM_AND_ABOVE",
+        },
+        {
+            "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+            "threshold": "BLOCK_MEDIUM_AND_ABOVE",
+        },
     ]
 
     model = genai.GenerativeModel(
@@ -101,6 +110,7 @@ def get_model():
     logging.info("Gemini model initialized")
     return model
 
+
 def progress_indicator():
     """
     Display a simple progress indicator (dots) in the console.
@@ -110,9 +120,10 @@ def progress_indicator():
     stopped by setting the 'do_run' attribute of the thread to False.
     """
     while getattr(threading.current_thread(), "do_run", True):
-        sys.stdout.write('.')
+        sys.stdout.write(".")
         sys.stdout.flush()
         time.sleep(0.5)
+
 
 def generate_content(prompt, max_retries=5, initial_delay=1):
     """
@@ -136,12 +147,12 @@ def generate_content(prompt, max_retries=5, initial_delay=1):
     """
     configure_gemini()
     model = get_model()
-    
+
     # Start the progress indicator in a separate thread
     progress_thread = threading.Thread(target=progress_indicator)
     progress_thread.daemon = True
     progress_thread.start()
-    
+
     result = None
     for attempt in range(max_retries):
         try:
@@ -151,24 +162,27 @@ def generate_content(prompt, max_retries=5, initial_delay=1):
             result = response.text
             break
         except Exception as e:
-            delay = initial_delay * (2 ** attempt)  # Exponential backoff
-            logging.warning(f"Attempt {attempt + 1} failed: {e}. Retrying in {delay} seconds...")
+            delay = initial_delay * (2**attempt)  # Exponential backoff
+            logging.warning(
+                f"Attempt {attempt + 1} failed: {e}. Retrying in {delay} seconds..."
+            )
             if attempt < max_retries - 1:
                 time.sleep(delay)
             else:
                 logging.error("Max retries reached. Unable to generate content.")
-    
+
     # Stop the progress indicator
     progress_thread.do_run = False
     progress_thread.join()
-    sys.stdout.write('\n')  # Move to the next line after the dots
-    
+    sys.stdout.write("\n")  # Move to the next line after the dots
+
     return result
+
 
 if __name__ == "__main__":
     prompt = "What can you tell me about establishing a yoga practice?"
     logging.info(f"Starting content generation with prompt: {prompt}")
-    print("Generating content", end='', flush=True)  # Start the line for progress dots
+    print("Generating content", end="", flush=True)  # Start the line for progress dots
     result = generate_content(prompt)
     if result:
         print("\nContent generated successfully. Output:")
