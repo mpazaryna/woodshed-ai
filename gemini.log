@@ -1,0 +1,5 @@
+2024-10-13 17:21:29,859 - INFO - Starting content generation with prompt: What can you tell me about establishing a yoga practice?
+2024-10-13 17:21:29,860 - INFO - Gemini API configured
+2024-10-13 17:21:29,860 - INFO - Gemini model initialized
+2024-10-13 17:21:29,861 - INFO - Attempting to generate content (attempt 1)
+2024-10-13 17:21:40,211 - INFO - Content generated successfully

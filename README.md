@@ -1,2 +1,2 @@
-# woodshed-ai
-Base Project for all ai woodsheds
+# AI and ML Projects and Learning Experiments
+
