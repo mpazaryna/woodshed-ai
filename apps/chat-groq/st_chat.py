@@ -129,21 +129,25 @@ def handle_user_input(client, model_option, max_tokens):
             )
 
 
-# Main execution
-icon("🏎️")
-st.subheader("Groq Chat Streamlit App", divider="rainbow", anchor=False)
-client = create_groq_client()
-initialize_session_state()
-models = get_models()
-col1, col2 = st.columns(2)
+def main():
+    icon("🏎️")
+    st.subheader("Groq Chat Streamlit App", divider="rainbow", anchor=False)
+    client = create_groq_client()
+    initialize_session_state()
+    models = get_models()
+    col1, col2 = st.columns(2)
 
-with col1:
-    model_option = select_model(models)
+    with col1:
+        model_option = select_model(models)
 
-max_tokens_range = models[model_option]["tokens"]
+    max_tokens_range = models[model_option]["tokens"]
 
-with col2:
-    max_tokens = set_max_tokens_slider(max_tokens_range)
+    with col2:
+        max_tokens = set_max_tokens_slider(max_tokens_range)
 
-display_chat_history()
-handle_user_input(client, model_option, max_tokens)
+    display_chat_history()
+    handle_user_input(client, model_option, max_tokens)
+
+
+if __name__ == "__main__":
+    main()
