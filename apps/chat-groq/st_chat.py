@@ -1,7 +1,8 @@
 from typing import Generator
 
 import streamlit as st
-from groq import Groq
+from error_utils import handle_error
+from groq_utils import create_groq_client, fetch_groq_response, generate_chat_responses
 
 # Constants
 DEFAULT_MODEL_INDEX = 4
@@ -102,20 +103,20 @@ def handle_user_input(client, model_option, max_tokens):
             st.markdown(prompt)
 
         try:
-            chat_completion = client.chat.completions.create(
-                model=model_option,
-                messages=[
+            chat_completion = fetch_groq_response(
+                client,
+                model_option,
+                [
                     {"role": m["role"], "content": m["content"]}
                     for m in st.session_state.messages
                 ],
-                max_tokens=max_tokens,
-                stream=True,
+                max_tokens,
             )
             with st.chat_message("assistant", avatar="🤖"):
                 chat_responses_generator = generate_chat_responses(chat_completion)
                 full_response = st.write_stream(chat_responses_generator)
         except Exception as e:
-            st.error(f"Error fetching response: {e}", icon="🚨")
+            handle_error(e, context="Fetching response from Groq API")
 
         if isinstance(full_response, str):
             st.session_state.messages.append(
@@ -131,7 +132,7 @@ def handle_user_input(client, model_option, max_tokens):
 # Main execution
 icon("🏎️")
 st.subheader("Groq Chat Streamlit App", divider="rainbow", anchor=False)
-client = Groq()
+client = create_groq_client()
 initialize_session_state()
 models = get_models()
 col1, col2 = st.columns(2)
