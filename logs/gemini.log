@@ -3,3 +3,13 @@
 2024-10-13 19:30:28,310 - INFO - Gemini model initialized
 2024-10-13 19:30:28,310 - INFO - Attempting to generate content (attempt 1)
 2024-10-13 19:30:40,012 - INFO - Content generated successfully
+2024-10-14 07:03:58,644 - INFO - Starting content generation with prompt: What can you tell me about establishing a yoga practice?
+2024-10-14 07:03:58,644 - INFO - Gemini API configured
+2024-10-14 07:03:58,645 - INFO - Gemini model initialized
+2024-10-14 07:03:58,645 - INFO - Attempting to generate content (attempt 1)
+2024-10-14 07:04:09,924 - INFO - Content generated successfully
+2024-10-14 07:06:00,603 - INFO - Starting content generation with prompt: What can you tell me about establishing a yoga practice?
+2024-10-14 07:06:00,603 - INFO - Gemini API configured
+2024-10-14 07:06:00,605 - INFO - Gemini model initialized
+2024-10-14 07:06:00,606 - INFO - Attempting to generate content (attempt 1)
+2024-10-14 07:06:12,436 - INFO - Content generated successfully

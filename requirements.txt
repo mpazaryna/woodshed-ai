@@ -1,4 +1,5 @@
 #core
+ipython
 streamlit
 langchain
 langchain-openai
@@ -21,3 +22,5 @@ numexpr
 pandas_datareader
 #llamaIndex
 llama-index-llms-ollama
+#gemini
+google-generativeai
