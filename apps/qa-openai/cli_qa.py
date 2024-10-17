@@ -1,6 +1,7 @@
 from langchain_openai import OpenAI
 from langchain.prompts import PromptTemplate
 
+
 def main():
 
     template = """Question: {question}

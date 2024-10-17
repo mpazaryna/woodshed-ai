@@ -2,6 +2,7 @@ import streamlit as st
 from langchain_openai import OpenAI
 from langchain.prompts import PromptTemplate
 
+
 def get_llm_response(question):
     """Loads the prompt template, configures OpenAI, and generates a response."""
     template = """Question: {question}
@@ -24,4 +25,3 @@ if st.button("Ask!"):
         st.success(f"Answer: {response}")
     except Exception as e:
         st.error(f"An error occurred: {e}")
-

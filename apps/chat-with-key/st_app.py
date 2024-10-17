@@ -5,6 +5,7 @@ from langchain_openai import OpenAI
 st.title("Provide your OpenAI Key")
 openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 
+
 def generate_response(input_text):
     """
     Generates a response for the given input text using OpenAI API.
