@@ -3,6 +3,12 @@ from functools import wraps
 
 from openai import OpenAI
 
+"""
+This module provides a framework for interacting with the OpenAI API to assist users in business strategy development.
+It utilizes decorators for error handling, specifically to manage empty responses from the API. The `handle_empty_response`
+decorator wraps functions to log errors and return a user-friendly message when an empty response is received.
+"""
+
 # Configure logging to write to both console and file
 logging.basicConfig(
     level=logging.INFO,
@@ -16,6 +22,12 @@ client = OpenAI()
 
 # Define the error handling decorator
 def handle_empty_response(func):
+    """
+    Decorator to handle empty responses from the OpenAI API.
+
+    Logs an error message if the response is empty and returns a user-friendly error message.
+    """
+
     @wraps(func)
     def wrapper(*args, **kwargs):
         response = func(*args, **kwargs)
@@ -29,6 +41,15 @@ def handle_empty_response(func):
 
 @handle_empty_response
 def get_completion(messages):
+    """
+    Sends a request to the OpenAI API and retrieves a completion based on the provided messages.
+
+    Args:
+        messages (list): A list of messages to send to the API.
+
+    Returns:
+        str: The content of the completion response.
+    """
     logger.info("Sending request to OpenAI API")
     completion = client.chat.completions.create(
         model="gpt-4-turbo-preview",
@@ -40,6 +61,15 @@ def get_completion(messages):
 
 @handle_empty_response
 def clarity_agent(user_input):
+    """
+    Processes user input to generate clarifying questions using the OpenAI API.
+
+    Args:
+        user_input (str): The input provided by the user.
+
+    Returns:
+        str: The generated response from the clarity agent.
+    """
     logger.info("Clarity Agent: Processing user input")
     messages = [
         {
@@ -61,6 +91,15 @@ def clarity_agent(user_input):
 
 @handle_empty_response
 def niche_agent(user_input):
+    """
+    Processes user input to suggest a niche and describe the ideal target avatar using the OpenAI API.
+
+    Args:
+        user_input (str): The input provided by the user.
+
+    Returns:
+        str: The generated response from the niche agent.
+    """
     logger.info("Niche Agent: Processing user input")
     messages = [
         {
@@ -82,6 +121,15 @@ def niche_agent(user_input):
 
 @handle_empty_response
 def action_agent(user_input):
+    """
+    Processes user input to provide specific actions the user should take using the OpenAI API.
+
+    Args:
+        user_input (str): The input provided by the user.
+
+    Returns:
+        str: The generated response from the action agent.
+    """
     logger.info("Action Agent: Processing user input")
     messages = [
         {
@@ -100,6 +148,17 @@ def action_agent(user_input):
 
 @handle_empty_response
 def business_strategist(clarity_response, niche_response, action_response):
+    """
+    Synthesizes information from various agents to create a comprehensive business strategy.
+
+    Args:
+        clarity_response (str): The response from the clarity agent.
+        niche_response (str): The response from the niche agent.
+        action_response (str): The response from the action agent.
+
+    Returns:
+        str: The synthesized business strategy.
+    """
     logger.info("Business Strategist: Synthesizing information")
     messages = [
         {
@@ -117,6 +176,15 @@ def business_strategist(clarity_response, niche_response, action_response):
 
 
 def get_user_input(prompt):
+    """
+    Prompts the user for input and returns the response.
+
+    Args:
+        prompt (str): The message to display to the user.
+
+    Returns:
+        str: The user's input.
+    """
     print(prompt)
     return input()
 
