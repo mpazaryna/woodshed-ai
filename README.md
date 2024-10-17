@@ -5,3 +5,9 @@
 ## Development Tasks
 
 We use `tasks.py` to manage common development tasks. This file contains various commands that help streamline our workflow, such as formatting code and running tests.
+
+## Conda Environment
+
+```shell
+conda env export > environment.yml
+```
