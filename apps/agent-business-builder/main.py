@@ -102,34 +102,38 @@ def get_user_input(prompt):
     return input()
 
 
+def process_pipeline(user_input):
+    logger.info("Starting pipeline process")
+
+    clarity_response = clarity_agent(user_input)
+    logger.info(f"Clarity Agent Response: {clarity_response}")
+
+    niche_response = niche_agent(user_input)
+    logger.info(f"Niche Agent Response: {niche_response}")
+
+    action_response = action_agent(user_input)
+    logger.info(f"Action Agent Response: {action_response}")
+
+    strategy = business_strategist(clarity_response, niche_response, action_response)
+    logger.info(f"Business Strategy: {strategy}")
+
+    return strategy
+
+
 def main():
     logger.info("Starting Business Builder process")
     initial_prompt = "Tell me about your business idea or current business:"
     user_input = get_user_input(initial_prompt)
     logger.info(f"Received initial user input: {user_input}")
 
-    # Process through each agent without additional input
-    clarity_response = clarity_agent(user_input)
-    print("\nClarity Agent Response:")
-    print(clarity_response)
-    logger.info(f"Clarity Agent Response: {clarity_response}")
+    strategy = process_pipeline(user_input)
 
-    niche_response = niche_agent(user_input)
-    print("\nNiche Agent Response:")
-    print(niche_response)
-    logger.info(f"Niche Agent Response: {niche_response}")
+    # Write the strategy to a markdown file
+    with open("strategy.md", "w") as file:
+        file.write("# Business Strategy\n\n")
+        file.write(strategy)
 
-    action_response = action_agent(user_input)
-    print("\nAction Agent Response:")
-    print(action_response)
-    logger.info(f"Action Agent Response: {action_response}")
-
-    strategy = business_strategist(clarity_response, niche_response, action_response)
-    print("\nBusiness Strategy:")
-    print(strategy)
-    logger.info(f"Business Strategy: {strategy}")
-
-    logger.info("Business Builder process completed")
+    logger.info("Business Builder process completed, strategy written to strategy.md")
 
 
 if __name__ == "__main__":
