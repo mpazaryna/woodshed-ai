@@ -1,3 +1,30 @@
+# CHANGELOG
+
+## [v0.3.0] - 2024-10-17 08:48:03 -0400
+
+### Features
+
+- add decorator to the builder ([`36f4aae`](https://github.com/mpazaryna/woodshed-ai/commit/36f4aae20db1b850952653c03b0c170a503cd560))
+- business builder agent ([`53b91f9`](https://github.com/mpazaryna/woodshed-ai/commit/53b91f901bb4db7e05146bb86fc35c029fcfcdd1))
+
+### Bug Fixes
+
+No fix changes in this release.
+
+### Documentation
+
+- updated readme files ([`5673215`](https://github.com/mpazaryna/woodshed-ai/commit/5673215a8e3d2c340ae1654245506fee41ac375f))
+- add changelog ([`20beb13`](https://github.com/mpazaryna/woodshed-ai/commit/20beb13ed75476b7b0fea6e3da9258145844c5f6))
+
+### Chores
+
+- retest chat-sql ([`c20fe36`](https://github.com/mpazaryna/woodshed-ai/commit/c20fe368231aa11694519504142051dc2d1ebcff))
+- removed poem generator and refactored chat-groq ([`12ea2b6`](https://github.com/mpazaryna/woodshed-ai/commit/12ea2b63156cda5894d3f2d53e0dcf8e7052f6b2))
+- ai assisted refactor ([`5db142e`](https://github.com/mpazaryna/woodshed-ai/commit/5db142e1b376ec93141831d569636ce658d3893a))
+
+
+
+
 ## [v0.2.0] - 2024-10-14 07:12:45 -0400
 
 ### Features
