@@ -30,7 +30,7 @@ def main():
     create_directories()
     setup_logging(log_file=Path("logs") / "dalle_app.log")
 
-    prompt = "a room full of dogs, cats and monkeys all meditating in a circle"
+    prompt = "hippies in the big sur forest, looking like they are meditating"
 
     # Generate and save image
     image_url = generate_image(prompt)
