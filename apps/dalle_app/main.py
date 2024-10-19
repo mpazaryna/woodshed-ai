@@ -8,6 +8,7 @@ describing it, and creating an audio narration of the description.
 import logging
 from pathlib import Path
 
+from config import config  # Import the config object
 from image_description import describe_image
 from image_generation import generate_image
 from image_processing import save_image_from_url
@@ -19,8 +20,8 @@ def create_directories():
     """
     Create output and logs directories if they don't exist.
     """
-    Path("output").mkdir(exist_ok=True)
-    Path("logs").mkdir(exist_ok=True)
+    Path(config.OUTPUT_DIR).mkdir(exist_ok=True)  # Use config for output directory
+    Path(config.LOGS_DIR).mkdir(exist_ok=True)  # Use config for logs directory
 
 
 def main():
@@ -28,16 +29,18 @@ def main():
     Main function to orchestrate the image generation, description, and audio creation process.
     """
     create_directories()
-    setup_logging(log_file=Path("logs") / "dalle_app.log")
+    setup_logging(log_file=config.LOGS_DIR / config.LOG_FILE)  # Use config for log file
 
-    prompt = "hippies in the big sur forest, looking like they are meditating"
+    prompt = config.IMAGE_PROMPT  # Use config for the image prompt
 
     # Generate and save image
     image_url = generate_image(prompt)
     logging.info(f"Generated image URL: {image_url}")
 
-    save_path = Path("output") / "image.png"
-    save_image_from_url(image_url, scale_percent=50, save_path=str(save_path))
+    save_path = Path(config.OUTPUT_DIR) / config.IMAGE_FILE  # Use config for save path
+    save_image_from_url(
+        image_url, scale_percent=config.IMAGE_SCALE_PERCENT, save_path=str(save_path)
+    )
 
     # Generate image description
     story = describe_image(str(save_path))
@@ -45,7 +48,9 @@ def main():
     logging.info(story)
 
     # Generate speech from the story and save as MP3
-    audio_path = Path("output") / "story.mp3"
+    audio_path = (
+        Path(config.OUTPUT_DIR) / config.AUDIO_FILE
+    )  # Use config for audio path
     generate_speech(story, audio_path)
 
 

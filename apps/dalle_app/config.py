@@ -14,7 +14,7 @@ class Config:
     LOG_FILE = "dalle_app.log"
 
     # DALL-E settings
-    IMAGE_PROMPT = "a room full of orange dogs all meditating in a circle"
+    IMAGE_PROMPT = "a beach yoga class set in Asbury Park, NJ"
     IMAGE_SCALE_PERCENT = 50
 
     # API keys (consider using environment variables for sensitive information)
