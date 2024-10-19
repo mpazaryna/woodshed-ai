@@ -43,7 +43,7 @@ import google.generativeai as genai
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("logs/gemini.log"), logging.StreamHandler()],
+    handlers=[logging.FileHandler("gemini.log"), logging.StreamHandler()],
 )
 
 
