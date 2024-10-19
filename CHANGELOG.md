@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## [v0.4.0] - 2024-10-18 20:47:37 -0400
+
+### Features
+
+- add config.py for settings, refactor main ([`250dc6b`](https://github.com/mpazaryna/woodshed-ai/commit/250dc6b95c127771ae4e17eec2e0d292b92cac1f))
+- crewai tool test #7 ([`d8b06b5`](https://github.com/mpazaryna/woodshed-ai/commit/d8b06b597c4c675a0cd6e08288795f505cc21fb8))
+- using decorator for error handling #6 ([`6ae6c96`](https://github.com/mpazaryna/woodshed-ai/commit/6ae6c96140ff8e044ac3511a2fbe90566f50b737))
+
+### Bug Fixes
+
+- crewai seems to have issues in a monorepo ([`a9c94d9`](https://github.com/mpazaryna/woodshed-ai/commit/a9c94d91d5183bb0bb5b53488a2b86348adaaef9))
+
+### Documentation
+
+- updated changelog ([`037bba6`](https://github.com/mpazaryna/woodshed-ai/commit/037bba67e3353f2599f1fbb1e0da76a1b781c5d6))
+
+### Chores
+
+- export conda env to environment.yml ([`7d8ecab`](https://github.com/mpazaryna/woodshed-ai/commit/7d8ecab73d35429cc1bb1e5b69567448402564d0))
+
+
 ## [v0.3.0] - 2024-10-17 08:48:03 -0400
 
 ### Features
