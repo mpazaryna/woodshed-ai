@@ -1,5 +1,6 @@
 import pytest
-from respond_in_spanish import get_spanish_response
+
+from woodshed.providers.openai.respond_in_spanish import get_spanish_response
 
 
 def is_spanish(text):
