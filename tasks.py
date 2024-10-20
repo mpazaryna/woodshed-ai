@@ -28,3 +28,25 @@ def format(c):
         c: The context object provided by Invoke.
     """
     c.run("black apps/")  # Updated to target only the /apps folder
+
+
+@task
+def run_chat(c):
+    """
+    Run the universal chat script.
+
+    Args:
+        c: The context object provided by Invoke.
+    """
+    c.run("python labs/universal_chat/main.py")
+
+
+@task
+def test_chat(c):
+    """
+    Run tests for the universal chat script using pytest.
+
+    Args:
+        c: The context object provided by Invoke.
+    """
+    c.run("pytest tests/labs/test_universal_chat.py")

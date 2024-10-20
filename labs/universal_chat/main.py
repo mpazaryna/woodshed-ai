@@ -1,12 +1,24 @@
 import logging
 from os import getenv
 
-import anthropic
-from groq import Groq
-from openai import OpenAI
+from groq_handler import Groq, handle_groq
+from openai_handler import OpenAI, handle_openai
+
+# Configure logging
+logging.basicConfig(
+    filename="universal_chat.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
 
 EXIT_MESSAGE = "Exiting chat."
 INVALID_INPUT_MESSAGE = "Invalid input. Please enter a valid number or '/quit' to exit."
+
+provider_handlers = {
+    "OpenAI": handle_openai,
+    "OpenRouter": handle_openai,
+    "Groq": handle_groq,
+}
 
 
 def get_providers():
@@ -16,8 +28,7 @@ def get_providers():
     return {
         1: ("OpenAI", OpenAI(api_key=getenv("OPENAI_API_KEY"))),
         2: ("Groq", Groq(api_key=getenv("GROQ_API_KEY"))),
-        3: ("Anthropic", anthropic.Anthropic(api_key=getenv("ANTHROPIC_API_KEY"))),
-        4: (
+        3: (
             "OpenRouter",
             OpenAI(
                 base_url="https://openrouter.ai/api/v1",
@@ -70,41 +81,6 @@ def chat_with_provider(provider_name, client):
     messages = [{"role": "system", "content": "You are a helpful assistant."}]
     assistant_response = ""
 
-    def handle_openai(client, messages):
-        completion = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=messages,
-            stream=True,
-        )
-        return completion
-
-    def handle_groq(client, messages):
-        stream = client.chat.completions.create(
-            messages=messages,
-            model="mixtral-8x7b-32768",
-            temperature=0.5,
-            max_tokens=1024,
-            top_p=1,
-            stop=None,
-            stream=True,
-        )
-        return stream
-
-    def handle_anthropic(client, messages):
-        messages.pop(0)
-        return client.messages.stream(
-            max_tokens=1024,
-            messages=messages,
-            model="claude-3-opus-20240229",
-        ).text_stream
-
-    provider_handlers = {
-        "OpenAI": handle_openai,
-        "OpenRouter": handle_openai,
-        "Groq": handle_groq,
-        "Anthropic": handle_anthropic,
-    }
-
     while True:
         user_input = input("User: ")
 
@@ -137,8 +113,6 @@ def main():
     Allows the user to select a provider and interact with it.
     """
     providers = get_providers()
-
-    logging.basicConfig(level=logging.INFO)
 
     while True:
         provider_name, client = select_provider(providers)
