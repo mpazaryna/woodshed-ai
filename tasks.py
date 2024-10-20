@@ -39,14 +39,3 @@ def run_chat(c):
         c: The context object provided by Invoke.
     """
     c.run("python labs/universal_chat/main.py")
-
-
-@task
-def test_chat(c):
-    """
-    Run tests for the universal chat script using pytest.
-
-    Args:
-        c: The context object provided by Invoke.
-    """
-    c.run("pytest tests/labs/test_universal_chat.py")
