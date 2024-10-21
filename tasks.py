@@ -38,4 +38,23 @@ def run_chat(c):
     Args:
         c: The context object provided by Invoke.
     """
-    c.run("python labs/universal_chat/main.py")
+    c.run("python labs/flex_chat/main.py")
+
+
+@task
+def run_teacher_kit(c):
+    """
+    Run the universal chat script.
+
+    Args:
+        c: The context object provided by Invoke.
+    """
+    c.run("python -m teacher_kit.main")
+
+
+@task
+def test_teacher_kit(c):
+    """
+    Run the tests for the teacher kit.
+    """
+    c.run("pytest teacher_kit")
