@@ -1,53 +1,34 @@
 # Model: gemma-7b-it
-**Yoga** is a holistic practice that originated in ancient India. It combines physical postures (asanas), breathing techniques (pranayama), and meditation to achieve physical, mental, and spiritual well-being.
+**Yoga** is a holistic practice that integrates physical poses (asanas), breathing techniques (pranayama), and meditation to promote physical and mental wellbeing. It is a mind-body practice that originated in ancient India and has roots in ancient spiritual traditions such as Hinduism and Buddhism.
 
-**Asanas (physical postures)**:
-- Improve flexibility and posture
-- Enhance balance and coordination
-- Strengthen muscles and bones
+**Core principles of yoga:**
 
-**Pranayama (breathing techniques)**:
-- Regulate the breath
-- Reduce stress and anxiety
-- Improve concentration and focus
+* **Union (Yoga):** The ultimate goal of yoga is to achieve union between the mind and body.
+* **Breath (Prana):** Breathing is considered vital in yoga and is used to enhance concentration and energy levels.
+* **Present moment awareness (Ishvara Kriya):** Focusing on the present moment and letting go of negativity.
+* **Self-discipline and self-awareness:** Yoga teaches self-discipline and encourages practitioners to become more aware of their thoughts and actions.
 
-**Meditation**:
-- Still the mind
-- Reduce negative thoughts and emotions
-- Foster a sense of peace and tranquility
+**Elements of yoga include:**
 
-**Origins and Philosophy:**
+* **Asanas (physical postures)**: Various poses that improve flexibility, strength, and balance.
+* **Pranayama (breathing techniques)**: Techniques to control and enhance breath, promoting relaxation and energy.
+* **Meditation**: Practices to cultivate awareness, reduce stress, and promote inner peace.
 
-- Yoga is rooted in the ancient Indian philosophy of Hinduism.
-- The word "yoga" comes from the Sanskrit root "yuj," which means "to yoke" or "to unite."
-- The goal of yoga is to unite the individual consciousness (mind and body) with the universal consciousness.
+**Benefits of yoga:**
 
-**Different Styles of Yoga:**
+* Improved physical flexibility and balance
+* Increased strength and muscle tone
+* Reduced stress and anxiety
+* Improved respiratory function
+* Enhanced self-awareness and concentration
+* Increased mindfulness and inner peace
 
-- Hatha yoga: Focuses on physical postures and breathing
-- Vinyasa yoga: Flowing and dynamic style
-- Ashatanga yoga: More rigorous and physically demanding
-- Iyengar yoga: Emphasis on precision and alignment
-- Kundalini yoga: Involves energy practices and meditation
+**Different styles of yoga:**
 
-**Benefits of Yoga:**
+* Hatha yoga
+* Vinyasa yoga
+* Ashtanga yoga
+* Iyengar yoga
+* Kundalini yoga
 
-- Increased flexibility and range of motion
-- Improved strength and balance
-- Reduced stress and anxiety
-- Improved sleep quality
-- Increased focus and concentration
-- Reduced pain and stiffness
-- Spiritual growth and self-awareness
-
-**Principles of Yoga:**
-
-- Breath awareness
-- Present moment awareness
-- Non-judgment
-- Compassion
-- Unity (union of mind, body, and spirit)
-
-**Who can practice yoga?**
-
-Yoga is suitable for people of all ages, fitness levels, and abilities. It is a safe and effective practice that can benefit everyone.
+**Yoga is suitable for people of all ages and fitness levels.** It is a complementary practice that can enhance overall health and well-being.
