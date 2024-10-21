@@ -7,7 +7,7 @@ from pypdf import PdfReader
 from warning_logger import log_warnings
 
 # Constants
-PDF_SAMPLE_PATH = "2403.05568v1.pdf"
+PDF_SAMPLE_PATH = "data/2403.05568v1.pdf"
 TEST_LOGGER_NAME = "test_pdf_chat_logger"  # Changed logger name
 TEST_LOG_FILE = "logs/test_pdf_chat_warnings.log"  # Changed log file name
 

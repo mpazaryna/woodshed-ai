@@ -1,7 +1,6 @@
 import pandas as pd
 import pytest
-
-from tools.autogen.color_hex_list import get_color_hex_list
+from color_hex_list import get_color_hex_list
 
 
 def test_get_color_hex_list():

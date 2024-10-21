@@ -6,21 +6,15 @@ from groq import Groq
 MODELS = ["llama3-8b-8192", "llama3-70b-8192", "mixtral-8x7b-32768", "gemma-7b-it"]
 
 
-def write_to_file(model_name, completion_content):
-    # Get the project root directory
-    project_root = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..", "..", "..")
-    )
+def write_to_file(model_name: str, content: str):
+    # Create the directory if it doesn't exist
+    os.makedirs("/Users/mpaz/workspace/woodshed-ai/woodshed/tmp", exist_ok=True)
 
-    # Create the logs directory if it doesn't exist
-    logs_dir = os.path.join(project_root, "logs")
-    os.makedirs(logs_dir, exist_ok=True)
-
-    # Write the completion to a file named after the model in the logs directory
-    file_path = os.path.join(logs_dir, f"{model_name}.txt")
-    with open(file_path, "w") as file:
-        file.write(f"# Model: {model_name}\n")
-        file.write(completion_content + "\n")
+    # Write the content to the file
+    file_path = f"/Users/mpaz/workspace/woodshed-ai/woodshed/tmp/{model_name}.txt"
+    with open(file_path, "w") as f:
+        f.write(f"# Model: {model_name}\n\n")
+        f.write(content)
 
 
 def get_chat_completion():

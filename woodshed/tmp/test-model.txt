@@ -1,0 +1,3 @@
+# Model: test-model
+
+Test content for integration
