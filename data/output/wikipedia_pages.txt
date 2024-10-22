@@ -2508,7 +2508,7 @@ additional terms may apply. By using this site, you agree to the <a href="https:
 <meta charset="UTF-8">
 <title>Asynchronous I/O - Wikipedia</title>
 <script>(function(){var className="client-js vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-sticky-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-1 vector-feature-appearance-pinned-clientpref-1 vector-feature-night-mode-enabled skin-theme-clientpref-day vector-toc-available";var cookie=document.cookie.match(/(?:^|; )enwikimwclientpreferences=([^;]+)/);if(cookie){cookie[1].split('%2C').forEach(function(pref){className=className.replace(new RegExp('(^| )'+pref.replace(/-clientpref-\w+$|[^\w-]+/g,'')+'-clientpref-\\w+( |$)'),'$1'+pref+'$2');});}document.documentElement.className=className;}());RLCONF={"wgBreakFrames":false,"wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy",
-"wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgRequestId":"68777db0-cbaa-4e5f-ba85-aa8f9989b05b","wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Asynchronous_I/O","wgTitle":"Asynchronous I/O","wgCurRevisionId":1227104208,"wgRevisionId":1227104208,"wgArticleId":1880953,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Articles with short description","Short description matches Wikidata","Articles needing additional references from June 2014","All articles needing additional references","Articles needing cleanup from September 2017","All pages needing cleanup","Cleanup tagged articles with a reason field from September 2017","Wikipedia pages needing cleanup from September 2017","All articles with unsourced statements","Articles with unsourced statements from November 2013",
+"wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgRequestId":"5ac4cf17-fc0f-4cdd-98f3-8e1acf30a7eb","wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Asynchronous_I/O","wgTitle":"Asynchronous I/O","wgCurRevisionId":1227104208,"wgRevisionId":1227104208,"wgArticleId":1880953,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Articles with short description","Short description matches Wikidata","Articles needing additional references from June 2014","All articles needing additional references","Articles needing cleanup from September 2017","All pages needing cleanup","Cleanup tagged articles with a reason field from September 2017","Wikipedia pages needing cleanup from September 2017","All articles with unsourced statements","Articles with unsourced statements from November 2013",
 "Articles needing additional references from July 2022","Articles with unsourced statements from April 2017","Articles to be expanded from May 2014","All articles to be expanded","Wikipedia articles with style issues from February 2016","All articles with style issues","Articles needing additional references from February 2016","Concurrency control","Events (computing)","Input/output"],"wgPageViewLanguage":"en","wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgRelevantPageName":"Asynchronous_I/O","wgRelevantArticleId":1880953,"wgIsProbablyEditable":true,"wgRelevantPageIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgNoticeProject":"wikipedia","wgCiteReferencePreviewsActive":false,"wgFlaggedRevsParams":{"tags":{"status":{"levels":1}}},"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgPopupsFlags":0,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","pageVariantFallbacks":"en"},"wgMFDisplayWikibaseDescriptions":{
 "search":true,"watchlist":true,"tagline":false,"nearby":true},"wgWMESchemaEditAttemptStepOversample":false,"wgWMEPageLength":20000,"wgRelatedArticlesCompat":[],"wgCentralAuthMobileDomain":false,"wgEditSubmitButtonLabelPublish":true,"wgULSPosition":"interlanguage","wgULSisCompactLinksEnabled":false,"wgVector2022LanguageInHeader":true,"wgULSisLanguageSelectorEmpty":false,"wgWikibaseItemId":"Q752741","wgCheckUserClientHintsHeadersJsApi":["architecture","bitness","brands","fullVersionList","mobile","model","platform","platformVersion"],"GEHomepageSuggestedEditsEnableTopics":true,"wgGETopicsMatchModeEnabled":false,"wgGEStructuredTaskRejectionReasonTextInputEnabled":false,"wgGELevelingUpEnabledForUser":false};RLSTATE={"ext.globalCssJs.user.styles":"ready","site.styles":"ready","user.styles":"ready","ext.globalCssJs.user":"ready","user":"ready","user.options":"loading","ext.cite.styles":"ready","ext.pygments":"ready","skins.vector.search.codex.styles":"ready","skins.vector.styles":"ready",
 "skins.vector.icons":"ready","ext.wikimediamessages.styles":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.interlanguage":"ready","wikibase.client.init":"ready","ext.wikimediaBadges":"ready"};RLPAGEMODULES=["ext.cite.ux-enhancements","ext.pygments.view","site","mediawiki.page.ready","mediawiki.toc","skins.vector.js","ext.centralNotice.geoIP","ext.centralNotice.startUp","ext.gadget.ReferenceTooltips","ext.gadget.switcher","ext.urlShortener.toolbar","ext.centralauth.centralautologin","mmv.head","mmv.bootstrap.autostart","ext.popups","ext.visualEditor.desktopArticleTarget.init","ext.visualEditor.targetLoader","ext.echo.centralauth","ext.eventLogging","ext.wikimediaEvents","ext.navigationTiming","ext.uls.interface","ext.cx.eventlogging.campaigns","ext.cx.uls.quick.actions","wikibase.client.vector-2022","ext.checkUser.clientHints","ext.quicksurveys.init","ext.growthExperiments.SuggestedEditSession","wikibase.sidebar.tracking"];</script>
@@ -3432,39 +3432,39 @@ additional terms may apply. By using this site, you agree to the <a href="https:
 <li><a rel="nofollow" class="external text" href="https://web.archive.org/web/20170623060116/http://www.cs.wustl.edu/~schmidt/PDF/proactor.pdf">ACE Proactor</a></li></ul>
 <!-- 
 NewPP limit report
-Parsed by mw‐web.eqiad.main‐685877499b‐vfm9h
-Cached time: 20241020165008
+Parsed by mw‐web.eqiad.main‐685877499b‐rjjxv
+Cached time: 20241021014904
 Cache expiry: 2592000
 Reduced expiry: false
 Complications: [vary‐revision‐sha1, show‐toc]
-CPU time usage: 0.267 seconds
-Real time usage: 0.381 seconds
-Preprocessor visited node count: 1882/1000000
+CPU time usage: 0.330 seconds
+Real time usage: 0.473 seconds
+Preprocessor visited node count: 1883/1000000
 Post‐expand include size: 56068/2097152 bytes
 Template argument size: 5132/2097152 bytes
 Highest expansion depth: 15/100
 Expensive parser function count: 19/500
 Unstrip recursion depth: 1/20
 Unstrip post‐expand size: 22951/5000000 bytes
-Lua time usage: 0.153/10.000 seconds
-Lua memory usage: 4453536/52428800 bytes
+Lua time usage: 0.193/10.000 seconds
+Lua memory usage: 4453576/52428800 bytes
 Number of Wikibase entities loaded: 0/400
 -->
 <!--
 Transclusion expansion time report (%,ms,calls,template)
-100.00%  323.673      1 -total
- 24.14%   78.126      6 Template:Ambox
- 23.34%   75.533      2 Template:Cite_web
- 19.33%   62.555      1 Template:Short_description
- 17.49%   56.611      1 Template:Refimprove
- 11.05%   35.774      2 Template:Pagetype
- 10.87%   35.195      4 Template:Citation_needed
-  9.88%   31.987      1 Template:Cleanup
-  9.03%   29.232      4 Template:Fix
-  8.67%   28.071      7 Template:Main_other
+100.00%  407.734      1 -total
+ 28.05%  114.366      6 Template:Ambox
+ 22.78%   92.893      2 Template:Cite_web
+ 20.75%   84.607      1 Template:Refimprove
+ 19.65%   80.103      1 Template:Short_description
+ 11.31%   46.105      2 Template:Pagetype
+  9.92%   40.429      4 Template:Citation_needed
+  9.26%   37.750      7 Template:Main_other
+  8.78%   35.789      1 Template:Cleanup
+  8.23%   33.549      4 Template:Fix
 -->
 
-<!-- Saved in parser cache with key enwiki:pcache:idhash:1880953-0!canonical and timestamp 20241020165008 and revision id 1227104208. Rendering was triggered because: page-view
+<!-- Saved in parser cache with key enwiki:pcache:idhash:1880953-0!canonical and timestamp 20241021014904 and revision id 1227104208. Rendering was triggered because: page-view
  -->
 </div><!--esi <esi:include src="/esitest-fa8a495983347898/content" /> --><noscript><img src="https://login.wikimedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" width="1" height="1" style="border: none; position: absolute;"></noscript>
 <div class="printfooter" data-nosnippet="">Retrieved from "<a dir="ltr" href="https://en.wikipedia.org/w/index.php?title=Asynchronous_I/O&amp;oldid=1227104208">https://en.wikipedia.org/w/index.php?title=Asynchronous_I/O&amp;oldid=1227104208</a>"</div></div>
@@ -3506,7 +3506,7 @@ additional terms may apply. By using this site, you agree to the <a href="https:
 </div> 
 <div class="vector-settings" id="p-dock-bottom">
 	<ul></ul>
-</div><script>(RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgHostname":"mw-web.eqiad.main-685877499b-skkqb","wgBackendResponseTime":169,"wgPageParseReport":{"limitreport":{"cputime":"0.267","walltime":"0.381","ppvisitednodes":{"value":1882,"limit":1000000},"postexpandincludesize":{"value":56068,"limit":2097152},"templateargumentsize":{"value":5132,"limit":2097152},"expansiondepth":{"value":15,"limit":100},"expensivefunctioncount":{"value":19,"limit":500},"unstrip-depth":{"value":1,"limit":20},"unstrip-size":{"value":22951,"limit":5000000},"entityaccesscount":{"value":0,"limit":400},"timingprofile":["100.00%  323.673      1 -total"," 24.14%   78.126      6 Template:Ambox"," 23.34%   75.533      2 Template:Cite_web"," 19.33%   62.555      1 Template:Short_description"," 17.49%   56.611      1 Template:Refimprove"," 11.05%   35.774      2 Template:Pagetype"," 10.87%   35.195      4 Template:Citation_needed","  9.88%   31.987      1 Template:Cleanup","  9.03%   29.232      4 Template:Fix","  8.67%   28.071      7 Template:Main_other"]},"scribunto":{"limitreport-timeusage":{"value":"0.153","limit":"10.000"},"limitreport-memusage":{"value":4453536,"limit":52428800}},"cachereport":{"origin":"mw-web.eqiad.main-685877499b-vfm9h","timestamp":"20241020165008","ttl":2592000,"transientcontent":false}}});});</script>
+</div><script>(RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgHostname":"mw-web.eqiad.main-6779bbcfdd-bhtlh","wgBackendResponseTime":173,"wgPageParseReport":{"limitreport":{"cputime":"0.330","walltime":"0.473","ppvisitednodes":{"value":1883,"limit":1000000},"postexpandincludesize":{"value":56068,"limit":2097152},"templateargumentsize":{"value":5132,"limit":2097152},"expansiondepth":{"value":15,"limit":100},"expensivefunctioncount":{"value":19,"limit":500},"unstrip-depth":{"value":1,"limit":20},"unstrip-size":{"value":22951,"limit":5000000},"entityaccesscount":{"value":0,"limit":400},"timingprofile":["100.00%  407.734      1 -total"," 28.05%  114.366      6 Template:Ambox"," 22.78%   92.893      2 Template:Cite_web"," 20.75%   84.607      1 Template:Refimprove"," 19.65%   80.103      1 Template:Short_description"," 11.31%   46.105      2 Template:Pagetype","  9.92%   40.429      4 Template:Citation_needed","  9.26%   37.750      7 Template:Main_other","  8.78%   35.789      1 Template:Cleanup","  8.23%   33.549      4 Template:Fix"]},"scribunto":{"limitreport-timeusage":{"value":"0.193","limit":"10.000"},"limitreport-memusage":{"value":4453576,"limit":52428800}},"cachereport":{"origin":"mw-web.eqiad.main-685877499b-rjjxv","timestamp":"20241021014904","ttl":2592000,"transientcontent":false}}});});</script>
 <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Article","name":"Asynchronous I\/O","url":"https:\/\/en.wikipedia.org\/wiki\/Asynchronous_I\/O","sameAs":"http:\/\/www.wikidata.org\/entity\/Q752741","mainEntity":"http:\/\/www.wikidata.org\/entity\/Q752741","author":{"@type":"Organization","name":"Contributors to Wikimedia projects"},"publisher":{"@type":"Organization","name":"Wikimedia Foundation, Inc.","logo":{"@type":"ImageObject","url":"https:\/\/www.wikimedia.org\/static\/images\/wmf-hor-googpub.png"}},"datePublished":"2005-05-13T06:25:28Z","dateModified":"2024-06-03T18:43:15Z","headline":"form of input\/output processing"}</script>
 </body>
 </html>

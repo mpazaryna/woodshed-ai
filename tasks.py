@@ -65,4 +65,4 @@ def chunk_files(c):
     """
     Run the chunking script.
     """
-    c.run("python woodshed/services/text_processing/enhanced_chunking.py")
+    c.run("python -m woodshed.services.text_processing.enhanced_chunking")
