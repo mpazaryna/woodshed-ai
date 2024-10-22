@@ -1,47 +1,44 @@
 # Model: gemma-7b-it
 
-**Yoga** is a holistic practice that integrates physical exercise, breathing techniques, and meditation to promote physical, mental, and spiritual well-being. It involves:
-
-**Physical Practice (Asana)**
-- Series of postures (asanas) that improve flexibility, strength, and balance.
-- Teaches body awareness and control.
-
-**Breathing Techniques (Pranayama)**
-- Various breathing exercises that regulate the breath and improve lung capacity.
-- Promotes relaxation and reduces stress.
-
-**Meditation and Mindfulness**
-- Techniques to calm the mind and focus.
-- Cultivates inner peace and tranquility.
-
-**Core Principles:**
-
-- **Unity (Yoga)**: Connecting the body, mind, and spirit.
-- **Transcendence (Liberation)**: Escaping from suffering and achieving liberation.
-- **Self-Awareness**: Developing awareness of thoughts and actions.
-- **Self-Discipline**: Developing concentration and willpower.
+**Yoga** is a holistic practice that originated in ancient India. It combines physical postures (asanas), breathing techniques (pranayama), and meditation to promote physical, mental, and spiritual well-being.
 
 
-**Benefits:**
+**Principles of Yoga:**
 
-- Increased flexibility and strength
-- Improved balance and coordination
-- Reduced stress and anxiety
-- Enhanced awareness and concentration
-- Spiritual growth and well-being
+* **Union:** Yoga aims to unite the mind and body through concentration and awareness.
+* **Self-discipline:** Consistent practice and discipline are essential for progress.
+* **Present moment awareness:** Focusing on the present moment helps reduce stress and anxiety.
+* **Non-judgment:** Accepting all thoughts and feelings without judgment is key.
 
-**Types of Yoga:**
 
-- Hatha Yoga
-- Vinyasa Yoga
-- Ashtanga Yoga
-- Iyengar Yoga
-- Kundalini Yoga
+**Different Styles of Yoga:**
 
-**Origins:**
+* **Hatha Yoga:** Emphasis on physical postures and breathing.
+* **Vinyasa Yoga:** Flowing, continuous sequences of postures.
+* **Ashtanga Yoga:** Structured series of postures with emphasis on physical purification.
+* **Iyengar Yoga:** Emphasis on precision and alignment in postures.
+* **Kundalini Yoga:** Focuses on activating and raising energy in the body.
 
-Yoga originated in ancient India over 5,000 years ago. The word "yoga" comes from the Sanskrit word "yuj," which means "to yoke" or "to unite."
 
-**Philosophy:**
+**Benefits of Yoga:**
 
-Yoga is based on a philosophical framework that emphasizes the interconnectedness of all things. It teaches that liberation from suffering is achieved through spiritual growth and self-realization.
+* Increased flexibility and mobility
+* Reduced stress and anxiety
+* Improved breathing
+* Increased strength and endurance
+* Improved posture and balance
+* Enhanced mindfulness and concentration
+* Reduced pain and stiffness
+
+
+**Components of Yoga:**
+
+* **Asana (postures)**: Physical postures that improve flexibility, strength, and balance.
+* **Pranayama (breathing techniques)**: Techniques for controlling and enhancing breathing.
+* **Meditation**: Practices to still the mind and cultivate awareness.
+* **Yoga philosophy**: Ethical principles and philosophical insights that provide context and meaning to the practice.
+
+
+**Who can practice yoga?**
+
+Yoga is suitable for people of all ages, fitness levels, and abilities. Modifications and variations are available for different needs.

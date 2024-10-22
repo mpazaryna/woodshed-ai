@@ -1,51 +1,166 @@
+# src/aiforge/vectorstore/enhanced_chunking.py
+
 import json
+import logging
 import os
 import sys
-from typing import List
-
-# Add the project root to the Python path
-project_root = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "..", "..", "..")
-)
-sys.path.insert(0, project_root)
-
+from pathlib import Path
+from typing import Dict, Iterator, List
 
 from woodshed.config import Config  # New import
 
 config = Config()
 
+from woodshed.log_util import Logger
 
-def chunk_text(file_name: str, chunk_size: int = 1000) -> List[str]:
+logger = Logger.setup_logging("chunking")
+
+
+def read_file_in_chunks(file_path: Path, chunk_size: int = 1024) -> Iterator[str]:
     """
-    Chunk text from a file in the data directory into segments of specified size.
+    Read a file in chunks to optimize memory usage.
 
     Args:
-    file_name (str): Name of the file in the data directory
-    chunk_size (int): Size of each chunk in characters
+        file_path (Path): Path to the file to be read.
+        chunk_size (int): Size of each chunk in bytes.
+
+    Yields:
+        str: Chunks of the file content.
+
+    Raises:
+        FileNotFoundError: If the specified file does not exist.
+        IOError: If there's an error reading the file.
+    """
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            while True:
+                chunk = file.read(chunk_size)
+                if not chunk:
+                    break
+                yield chunk
+    except FileNotFoundError:
+        raise FileNotFoundError(f"File not found: {file_path}")
+    except IOError as e:
+        raise IOError(f"Error reading file {file_path}: {str(e)}")
+
+
+def chunk_text(text: str, chunk_size: int, overlap: int) -> List[str]:
+    """
+    Split text into chunks of words with specified overlap.
+
+    Args:
+        text (str): The input text to be chunked.
+        chunk_size (int): The number of words in each chunk.
+        overlap (int): The number of words to overlap between chunks.
 
     Returns:
-    List[str]: List of text chunks
-    """
-    file_path = config.data_dir / file_name
-    if not file_path.exists():
-        raise FileNotFoundError(f"File {file_name} not in data directory")
+        List[str]: A list of text chunks.
 
+    Raises:
+        ValueError: If chunk_size or overlap is less than 1.
+    """
+    if chunk_size < 1 or overlap < 1:
+        raise ValueError("chunk_size and overlap must be at least 1")
+
+    words = text.split()
     chunks = []
-    with open(file_path, "r") as file:
-        text = file.read()
-        for i in range(0, len(text), chunk_size):
-            chunks.append(text[i : i + chunk_size])
+    start = 0
+
+    while start < len(words):
+        end = start + chunk_size
+        chunk = " ".join(words[start : min(end, len(words))])
+        chunks.append(chunk)
+        start += chunk_size - overlap
+
     return chunks
 
 
-def save_chunks_to_json(chunks: List[str], output_file: str) -> None:
+def process_file(
+    file_path: Path, chunk_size: int, overlap: int
+) -> Dict[str, List[str]]:
     """
-    Save text chunks to a JSON file in the tmp directory.
+    Process a single file by reading it in chunks and then splitting into overlapping word chunks.
 
     Args:
-    chunks (List[str]): List of text chunks
-    output_file (str): Name of the output JSON file
+        file_path (Path): Path to the file to be processed.
+        chunk_size (int): The number of words in each chunk.
+        overlap (int): The number of words to overlap between chunks.
+
+    Returns:
+        Dict[str, List[str]]: A dictionary with the filename as key and list of chunks as value.
+
+    Raises:
+        FileNotFoundError: If the specified file does not exist.
+        IOError: If there's an error reading the file.
     """
-    file_path = config.tmp_dir / output_file
-    with open(file_path, "w") as f:
-        json.dump({"chunks": chunks}, f)
+    try:
+        text = "".join(read_file_in_chunks(file_path))
+        chunks = chunk_text(text, chunk_size, overlap)
+        logger.info(f"Successfully processed file: {file_path}")  # New log message
+        return {file_path.name: chunks}
+    except (FileNotFoundError, IOError) as e:
+        logger.error(
+            f"Error processing file {file_path}: {str(e)}"
+        )  # Changed to logger.error
+        return {}
+
+
+def process_directory(
+    directory: Path, chunk_size: int, overlap: int
+) -> Dict[str, List[str]]:
+    """
+    Process all text files in the given directory.
+
+    Args:
+        directory (Path): Path to the directory containing text files.
+        chunk_size (int): The number of words in each chunk.
+        overlap (int): The number of words to overlap between chunks.
+
+    Returns:
+        Dict[str, List[str]]: A dictionary with filenames as keys and lists of chunks as values.
+
+    Raises:
+        NotADirectoryError: If the specified path is not a directory.
+    """
+    if not directory.is_dir():
+        raise NotADirectoryError(f"{directory} is not a valid directory")
+
+    all_chunks = {}
+    logger.info(f"Processing directory: {directory}")  # New log message
+    for file_path in directory.glob("*.txt"):
+        all_chunks.update(process_file(file_path, chunk_size, overlap))
+    logger.info(f"Finished processing directory: {directory}")  # New log message
+    return all_chunks
+
+
+def save_chunks_to_json(chunks: Dict[str, List[str]], output_file: Path) -> None:
+    """
+    Save the chunked data to a JSON file.
+
+    Args:
+        chunks (Dict[str, List[str]]): A dictionary with filenames as keys and lists of chunks as values.
+        output_file (Path): Path where the JSON file will be saved.
+
+    Raises:
+        IOError: If there's an error writing to the file.
+    """
+    try:
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(chunks, f, ensure_ascii=False, indent=2)
+    except IOError as e:
+        raise IOError(f"Error writing to file {output_file}: {str(e)}")
+
+
+if __name__ == "__main__":
+    chunk_size = 1000
+    overlap = 200
+
+    try:
+        logger.info("Starting enhanced chunking process")  # New log message
+        all_chunks = process_directory(config.data_dir, chunk_size, overlap)
+        save_chunks_to_json(all_chunks, config.output_file)
+        logger.info(f"Chunked files have been saved to {config.output_file}")
+    except Exception as e:
+        logger.error(f"An error occurred: {str(e)}")
+    finally:
+        logger.info("Enhanced chunking process completed")  # New log message

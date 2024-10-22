@@ -3,10 +3,7 @@
 import pytest
 
 from woodshed.config import Config
-from woodshed.services.text_processing.enhanced_chunking import (
-    chunk_text,
-    read_file_in_chunks,
-)
+from woodshed.services.text_processing.chunking import chunk_text, read_file_in_chunks
 
 config = Config()
 
