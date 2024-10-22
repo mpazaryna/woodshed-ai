@@ -1,18 +1,30 @@
 # src/aiforge/vectorstore/enhanced_chunking.py
 
 import json
+import logging
 import os
 import sys
 from pathlib import Path
 from typing import Dict, Iterator, List
 
-# Add the project root to the Python path
-project_root = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "..", "..", "..")
-)
-sys.path.insert(0, project_root)
-
 from woodshed.services.scrape_wikipedia.config import config
+
+# Set up logging
+log_dir = Path("/Users/mpaz/workspace/woodshed-ai/logs")
+log_dir.mkdir(parents=True, exist_ok=True)  # Create logs directory if it doesn't exist
+
+logging.basicConfig(
+    filename=log_dir / "chunking.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
+
+
+class Config:
+    def __init__(self):
+        self.data_dir = Path("/Users/mpaz/workspace/woodshed-ai/tmp/articles")
+        self.tmp_dir = Path("/Users/mpaz/workspace/woodshed-ai/tmp")
+        self.output_file = self.tmp_dir / "chunked_files.json"
 
 
 def read_file_in_chunks(file_path: Path, chunk_size: int = 1024) -> Iterator[str]:
@@ -97,7 +109,7 @@ def process_file(
         chunks = chunk_text(text, chunk_size, overlap)
         return {file_path.name: chunks}
     except (FileNotFoundError, IOError) as e:
-        print(f"Error processing file {file_path}: {str(e)}")
+        logging.error(f"Error processing file {file_path}: {str(e)}")
         return {}
 
 
@@ -148,11 +160,13 @@ def save_chunks_to_json(chunks: Dict[str, List[str]], output_file: Path) -> None
 if __name__ == "__main__":
     chunk_size = 1000
     overlap = 200
-    output_file = config.tmp_dir / "chunked_files.json"
+
+    # Initialize the config without parameters
+    config = Config()
 
     try:
         all_chunks = process_directory(config.data_dir, chunk_size, overlap)
-        save_chunks_to_json(all_chunks, output_file)
-        print(f"Chunked files have been saved to {output_file}")
+        save_chunks_to_json(all_chunks, config.output_file)
+        logging.info(f"Chunked files have been saved to {config.output_file}")
     except Exception as e:
-        print(f"An error occurred: {str(e)}")
+        logging.error(f"An error occurred: {str(e)}")

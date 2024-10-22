@@ -6,12 +6,18 @@ from groq import Groq
 MODELS = ["llama3-8b-8192", "llama3-70b-8192", "mixtral-8x7b-32768", "gemma-7b-it"]
 
 
+class Config:
+    BASE_PATH = "/Users/mpaz/workspace/woodshed-ai/tmp"
+
+    @classmethod
+    def get_file_path(cls, model_name: str) -> str:
+        return os.path.join(cls.BASE_PATH, f"{model_name}.txt")
+
+
 def write_to_file(model_name: str, content: str):
-    # Create the directory if it doesn't exist
-    os.makedirs("/Users/mpaz/workspace/woodshed-ai/woodshed/tmp", exist_ok=True)
 
     # Write the content to the file
-    file_path = f"/Users/mpaz/workspace/woodshed-ai/woodshed/tmp/{model_name}.txt"
+    file_path = Config.get_file_path(model_name)
     with open(file_path, "w") as f:
         f.write(f"# Model: {model_name}\n\n")
         f.write(content)

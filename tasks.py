@@ -58,3 +58,11 @@ def test_teacher_kit(c):
     Run the tests for the teacher kit.
     """
     c.run("pytest teacher_kit")
+
+
+@task
+def chunk_files(c):
+    """
+    Run the chunking script.
+    """
+    c.run("python woodshed/services/text_processing/enhanced_chunking.py")
