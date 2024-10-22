@@ -7,7 +7,7 @@ MODELS = ["llama3-8b-8192", "llama3-70b-8192", "mixtral-8x7b-32768", "gemma-7b-i
 
 
 class Config:
-    BASE_PATH = "/Users/mpaz/workspace/woodshed-ai/tmp"
+    BASE_PATH = "/Users/mpaz/workspace/woodshed-ai/data/output"
 
     @classmethod
     def get_file_path(cls, model_name: str) -> str:
