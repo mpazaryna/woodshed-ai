@@ -16,55 +16,46 @@ config = Config()
 
 
 @pytest.fixture(scope="module")
-def test_data_dir():
-    return config.test_data_dir
-
-
-@pytest.fixture(scope="module")
-def test_db_dir():
+def setup_test_environment():
+    # Setup test data directory and database directory
+    sample_documents = str(config.data_dir)
     db_dir = config.tmp_dir / "chroma-populate"
     if db_dir.exists():
         shutil.rmtree(db_dir)
-    return db_dir
 
-
-@pytest.fixture(scope="module")
-def sample_documents():
-    return str(config.data_dir)
-
-
-@pytest.fixture(scope="module")
-def vectordb(sample_documents, test_db_dir):
     documents = load_documents(sample_documents)
     texts = split_text(documents)
-    return create_vectordb(texts, test_db_dir)
+    vectordb = create_vectordb(texts, db_dir)
+    qa_chain = create_qa_chain(vectordb)
+
+    return sample_documents, vectordb, qa_chain
 
 
-@pytest.fixture(scope="module")
-def qa_chain(vectordb):
-    return create_qa_chain(vectordb)
-
-
-def test_load_documents(sample_documents):
+def test_load_documents(setup_test_environment):
+    sample_documents, _, _ = setup_test_environment
     documents = load_documents(sample_documents)
     assert len(documents) > 0
 
 
-def test_split_text(sample_documents):
+def test_split_text(setup_test_environment):
+    sample_documents, _, _ = setup_test_environment
     documents = load_documents(sample_documents)
     texts = split_text(documents)
     assert len(texts) > 0
 
 
-def test_create_vectordb(vectordb):
+def test_create_vectordb(setup_test_environment):
+    _, vectordb, _ = setup_test_environment
     assert vectordb is not None
 
 
-def test_create_qa_chain(qa_chain):
+def test_create_qa_chain(setup_test_environment):
+    _, _, qa_chain = setup_test_environment
     assert qa_chain is not None
 
 
-def test_process_query(qa_chain):
+def test_process_query(setup_test_environment):
+    _, _, qa_chain = setup_test_environment
     query = "Who did Databricks acquire?"
     result, sources = process_query(qa_chain, query)
     assert result is not None
