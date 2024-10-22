@@ -7,8 +7,6 @@ import sys
 from pathlib import Path
 from typing import Dict, Iterator, List
 
-from woodshed.services.scrape_wikipedia.config import config
-
 # Set up logging
 log_dir = Path("/Users/mpaz/workspace/woodshed-ai/logs")
 log_dir.mkdir(parents=True, exist_ok=True)  # Create logs directory if it doesn't exist

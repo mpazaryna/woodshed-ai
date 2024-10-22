@@ -1,12 +1,24 @@
 # tests/test_enhanced_chunking.py
 
+from pathlib import Path
+
 import pytest
 
-from woodshed.services.scrape_wikipedia.config import config
 from woodshed.services.text_processing.enhanced_chunking import (
     chunk_text,
     read_file_in_chunks,
 )
+
+
+class Config:
+    def __init__(self):
+        self.data_dir = Path("/Users/mpaz/workspace/woodshed-ai/data/input/articles")
+        self.tmp_dir = Path("/Users/mpaz/workspace/woodshed-ai/data/output")
+        self.output_file = self.tmp_dir / "chunked_files.json"
+
+
+# Initialize the config without parameters
+config = Config()
 
 
 @pytest.fixture(scope="session", autouse=True)
