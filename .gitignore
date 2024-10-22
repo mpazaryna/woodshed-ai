@@ -298,3 +298,4 @@ cython_debug/
 Thumbs.db
 *.pyc
 /tmp
+/data/output/chroma-populate

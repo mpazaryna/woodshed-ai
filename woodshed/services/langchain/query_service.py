@@ -13,7 +13,7 @@ def create_qa_chain(vectordb):
 
 
 def process_query(qa_chain, query):
-    llm_response = qa_chain(query)
+    llm_response = qa_chain.invoke({"query": query})
     result = llm_response["result"]
     sources = [source.metadata["source"] for source in llm_response["source_documents"]]
     return result, sources
