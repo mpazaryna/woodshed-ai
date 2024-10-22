@@ -2,12 +2,13 @@ import os
 
 import pytest
 from langchain_community.vectorstores import FAISS
-from pdf_chat import process_text  # Changed import from app to pdf_chat
 from pypdf import PdfReader
-from warning_logger import log_warnings
+
+from woodshed.pdf_chat.main import process_text  # Changed import from app to pdf_chat
+from woodshed.pdf_chat.warning_logger import log_warnings
 
 # Constants
-PDF_SAMPLE_PATH = "data/2403.05568v1.pdf"
+PDF_SAMPLE_PATH = "/Users/mpaz/workspace/woodshed-ai/data/2403.05568v1.pdf"
 TEST_LOGGER_NAME = "test_pdf_chat_logger"  # Changed logger name
 TEST_LOG_FILE = "logs/test_pdf_chat_warnings.log"  # Changed log file name
 

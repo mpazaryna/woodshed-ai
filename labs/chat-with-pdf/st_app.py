@@ -8,8 +8,19 @@ Run this script using streamlit to start the web application:
     streamlit run st_pdf_chat.py
 """
 
+import logging
+import os
+import sys
+from pathlib import Path
+
+# Add the root directory to the system path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+
 import streamlit as st
-from pdf_chat import answer_question, process_pdf
+
+from woodshed.pdf_chat.main import answer_question, process_pdf
+
+# from pdf_chat import answer_question, process_pdf
 
 
 def sidebar_content():

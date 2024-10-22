@@ -41,7 +41,8 @@ from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.llms import OpenAI
 from langchain_community.vectorstores import FAISS
 from pypdf import PdfReader
-from warning_logger import log_warnings
+
+from .warning_logger import log_warnings
 
 # Constants
 CHUNK_SIZE = 1000

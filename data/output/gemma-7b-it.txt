@@ -1,61 +1,46 @@
 # Model: gemma-7b-it
 
-**Yoga** is a holistic practice that integrates physical postures (asanas), breathing techniques (pranayama), and meditation to promote physical, mental, and spiritual well-being. 
-
-**Origins:**
-- Originated in ancient India around 2,500-500 BC.
-- Derived from the ancient Indian philosophy of Vedanta.
-
-**Goals:**
-- To achieve unity of mind and body.
-- To reduce physical and mental stress.
-- To foster self-awareness and compassion.
-- To spiritual growth and transformation.
-
-**Components:**
-
-**1. Asana (Physical Postures)**
-- Sequences of postures that improve flexibility, strength, and balance.
-- Connect the body with the breath.
-
-**2. Pranayama (Breathing Techniques)**
-- Techniques for controlling and manipulating the breath.
-- Improves concentration and oxygenation.
-
-**3. Meditation**
-- Practice for cultivating inner calmness and awareness.
-- Develops focus and concentration.
-
-**4. Yoga Philosophy**
-- Ethical guidelines and philosophical underpinnings of yoga.
-- Teaches about self, reality, and the relationship between mind and body.
-
-**Types of Yoga:**
-- Hatha Yoga
-- Ashtanga Yoga
-- Vinyasa Yoga
-- Iyengar Yoga
-- Kundalini Yoga
-
-**Benefits:**
-
-- Increased flexibility and mobility
-- Reduced stress and anxiety
-- Improved strength and balance
-- Enhanced respiratory function
-- Increased mindfulness and self-awareness
-- Reduced pain and stiffness
-- Spiritual growth and transformation
+**Yoga** is a holistic practice that originated in ancient India and encompasses physical poses (asanas), breathing techniques (pranayama), meditation, and mindfulness techniques. It is a holistic approach to health and well-being that focuses on physical, mental, and spiritual growth.
 
 **Principles of Yoga:**
 
-- **Satya (Truth)**: Practicing with integrity.
-- **Asteya (Non-stealing)**: Respect for oneself and others.
-- **Karuna (Compassion)**: Treating the body and mind with kindness.
-- **Aparigraha (Non-attachment)**: Letting go of material possessions and desires.
+* **Unity (Yoga)**: The goal is to unite the mind, body, and spirit through conscious awareness.
+* **Non-attachment** The practice encourages letting go of material possessions and emotional attachments.
+* **Present moment awareness** : Staying mindful of the present moment without judgment.
+* **Self-discipline and surrender** : Engaging in the practice with discipline and letting go of resistance.
 
-**Benefits for Society:**
-- Promotes physical and mental health.
-- Reduces healthcare costs.
-- Increases productivity and creativity.
-- Boosts community resilience.
+**Components of Yoga:**
+
+**1. Asana (Physical poses)**
+- A series of postures that improve flexibility, balance, and physical strength.
+
+**2. Pranayama (Breathing techniques)**
+- Techniques for controlling and enhancing breath, which helps to calm the mind and body.
+
+**3. Meditation**
+- Practices for cultivating present moment awareness and reducing stress and anxiety.
+
+**4. Mindfulness**
+- Cultivating a state of awareness without judgment to present moment experiences.
+
+**Benefits of Yoga:**
+
+* Improved flexibility and posture
+* Increased strength and balance
+* Reduced stress and anxiety
+* Enhanced mindfulness and awareness
+* Improved sleep quality
+* Reduced pain and stiffness
+* Increased self-confidence and peace of mind
+
+
+**Different Styles of Yoga:**
+
+* Hatha Yoga
+* Ashtanga Yoga
+* Vinyasa Yoga
+* Iyengar Yoga
+* Kundalini Yoga
+
+
+Yoga is suitable for people of all ages and physical abilities. It can be practiced in a studio, at home, or outdoors.
