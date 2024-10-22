@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pytest
 
+from woodshed.config import Config
 from woodshed.services.langchain.document_processing import (
     create_vectordb,
     load_documents,
@@ -11,31 +12,7 @@ from woodshed.services.langchain.document_processing import (
 )
 from woodshed.services.langchain.query_service import create_qa_chain, process_query
 
-
-# Inline AiForgeConfig
-class AiForgeConfig:
-    PROJECT_NAME = "AIFORGE"
-
-    @property
-    def project_root(self):
-        env_root = os.environ.get(f"{self.PROJECT_NAME}_PROJECT_ROOT")
-        return Path(env_root) if env_root else Path.cwd()
-
-    def _get_directory(self, env_var, default_name):
-        env_dir = os.environ.get(env_var)
-        return Path(env_dir) if env_dir else self.project_root / default_name
-
-    @property
-    def tmp_dir(self):
-        return self._get_directory(f"{self.PROJECT_NAME}_TMP_DIR", "tmp")
-
-    @property
-    def test_data_dir(self):
-        return self._get_directory(f"{self.PROJECT_NAME}_TEST_DATA_DIR", "data/test")
-
-
-# Create a config instance
-config = AiForgeConfig()
+config = Config()
 
 
 @pytest.fixture(scope="module")
@@ -53,7 +30,7 @@ def test_db_dir():
 
 @pytest.fixture(scope="module")
 def sample_documents():
-    return str(config.tmp_dir / "articles")
+    return str(config.data_dir)
 
 
 @pytest.fixture(scope="module")

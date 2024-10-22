@@ -9,7 +9,10 @@ project_root = os.path.abspath(
 )
 sys.path.insert(0, project_root)
 
-from woodshed.services.scrape_wikipedia.config import config
+
+from woodshed.config import Config  # New import
+
+config = Config()
 
 
 def chunk_text(file_name: str, chunk_size: int = 1000) -> List[str]:

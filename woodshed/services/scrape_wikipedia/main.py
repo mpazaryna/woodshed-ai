@@ -6,11 +6,9 @@ from typing import List, Tuple
 
 import aiohttp
 
+from woodshed.config import Config  # New import
 
-class Config:
-    def __init__(self):
-        self.data_dir = Path("/Users/mpaz/workspace/woodshed-ai/data/output")
-        self.output_file = self.data_dir / "chunked_files.json"
+config = Config()
 
 
 async def fetch_wikipedia_pages(urls: List[str]) -> List[Tuple[str, str]]:

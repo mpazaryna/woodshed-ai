@@ -7,7 +7,9 @@ import sys
 from pathlib import Path
 from typing import Dict, Iterator, List
 
-from woodshed.services.scrape_wikipedia.config import config
+from woodshed.config import Config  # New import
+
+config = Config()
 
 # Set up logging
 log_dir = Path("/Users/mpaz/workspace/woodshed-ai/logs")
@@ -18,13 +20,6 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
-
-
-class Config:
-    def __init__(self):
-        self.data_dir = Path("/Users/mpaz/workspace/woodshed-ai/data/input/articles")
-        self.tmp_dir = Path("/Users/mpaz/workspace/woodshed-ai/data/output")
-        self.output_file = self.tmp_dir / "chunked_files.json"
 
 
 def read_file_in_chunks(file_path: Path, chunk_size: int = 1024) -> Iterator[str]:
