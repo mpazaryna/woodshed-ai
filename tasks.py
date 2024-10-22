@@ -66,3 +66,11 @@ def chunk_files(c):
     Run the chunking script.
     """
     c.run("python -m woodshed.services.text_processing.enhanced_chunking")
+
+
+@task
+def summarize_url(c):
+    """
+    Run the URL summarizer script.
+    """
+    c.run("python -m woodshed.providers.openai.url_summarizer")

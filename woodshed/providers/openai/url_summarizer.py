@@ -15,15 +15,14 @@ from typing import Optional
 # Set the USER_AGENT environment variable
 os.environ["USER_AGENT"] = "YourUserAgentString"
 
+from langchain.chains.summarize import load_summarize_chain
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_openai import ChatOpenAI
 from openai import OpenAIError
 from requests.exceptions import RequestException
 
-from langchain.chains.summarize import load_summarize_chain
 
-
-def run_call_summarize(url: str) -> Optional[str]:
+def run_call_summarize(url: str) -> str:
     """
     Given a URL, this function fetches its content, summarizes it using a chain based on the GPT model,
     and returns the summarized version.
@@ -32,7 +31,7 @@ def run_call_summarize(url: str) -> Optional[str]:
         url (str): The URL of the web page/document to be summarized.
 
     Returns:
-        Optional[str]: Summarized content of the provided URL, or None if an error occurs.
+        str: Summarized content of the provided URL, or an empty string if an error occurs.
     """
     try:
         # Create an instance of the WebBaseLoader with the provided URL.
@@ -53,6 +52,8 @@ def run_call_summarize(url: str) -> Optional[str]:
         # Extract only the summary from the response
         summary = response["output_text"]
 
+        if summary is None:
+            return ""  # Ensure it returns an empty string instead of None
         return summary
 
     except RequestException as e:
@@ -64,7 +65,7 @@ def run_call_summarize(url: str) -> Optional[str]:
     except Exception as e:
         print(f"An unexpected error occurred: {e}", file=sys.stderr)
 
-    return None
+    return ""
 
 
 if __name__ == "__main__":
