@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from woodshed.services.text_processing.enhanced_chunking import (
+from woodshed.modules.text_processing.enhanced_chunking import (
     chunk_text,
     read_file_in_chunks,
 )

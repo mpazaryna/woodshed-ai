@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from woodshed.services.langchain.langchain_service import get_langchain_service
+from woodshed.modules.langchain.langchain_service import get_langchain_service
 
 
 @pytest.fixture(params=["openai", "gemini"])

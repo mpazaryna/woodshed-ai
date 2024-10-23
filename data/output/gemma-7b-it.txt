@@ -1,28 +1,35 @@
 # Model: gemma-7b-it
 
-**Yoga** is a holistic mind-body practice that originated in ancient India. It is a physical, mental, and spiritual discipline that aims to improve physical health, mental well-being, and spiritual growth.
+**Yoga** is a holistic practice that integrates physical postures (asanas), breathing techniques (pranayama), and meditation to promote physical, mental, and spiritual well-being. It is a holistic system that focuses on physical, mental, and spiritual development. 
 
-**Principles of Yoga:**
+**Origins:**
 
-* **Union:** Yoga seeks to unite the mind, body, and spirit.
-* **Awareness:** The practice involves cultivating awareness of the present moment.
-* **Discipline:** Consistency and repetition are essential for progress.
-* **Non-attachment:** Yoga teaches letting go of material possessions, desires, and ego.
+* Yoga originated in ancient India and has roots in the philosophical traditions of Hinduism and Buddhism.
+* The word "yoga" comes from the Sanskrit word "yuj," which means "to yoke" or "to unite."
 
-**Practices of Yoga:**
+**Components of Yoga:**
 
-* **Asana (physical postures)**: Postures are held to improve flexibility, strength, and balance.
-* **Pranayama (breathing exercises)**: Techniques to control and regulate the breath.
-* **Meditation**: Practices to quiet the mind and achieve inner peace.
-* **Yoga Nidra (deep sleep)**: A restorative practice where the body and mind are completely relaxed.
+**1. Asanas (physical postures)**
+- Sequences of postures that improve flexibility, strength, and balance.
+- Focuses on improving posture, alignment, and physical fitness.
+
+**2. Pranayama (breathing techniques)**
+- Techniques for controlling and manipulating the breath.
+- Breathing exercises that promote relaxation, focus, and energy.
+
+**3. Meditation**
+- Practices that cultivate awareness and inner peace.
+- Techniques for reducing stress, anxiety, and improving concentration.
 
 **Benefits of Yoga:**
 
-* Improved physical health: flexibility, strength, reduced pain, improved posture
-* Reduced stress and anxiety: relaxation techniques help to calm the nervous system.
-* Increased mental clarity and focus: awareness practices enhance mindfulness and concentration.
-* Spiritual growth: yoga fosters a connection to the present moment and a deeper understanding of oneself.
-
+* Increased flexibility and mobility
+* Improved strength and balance
+* Reduced stress and anxiety
+* Improved breathing and respiratory function
+* Increased mindfulness and awareness
+* Spiritual growth and transformation
+* Improved physical and mental health
 
 **Types of Yoga:**
 
@@ -32,6 +39,14 @@
 * Iyengar Yoga
 * Kundalini Yoga
 
+**Variations of Yoga:**
+
+* **Restorative Yoga:** Focuses on deep relaxation and stretching.
+* **Prenatal Yoga:** Adapted for pregnant women.
+* **Corporate Yoga:** Tailored for the workplace to reduce stress and improve productivity.
+
 **Who can practice Yoga?**
 
-Yoga is suitable for people of all ages and fitness levels. Modifications can be made to accommodate individual needs.
+Yoga is suitable for people of all ages and fitness levels. 
+* Beginners can start with gentle hatha yoga or restorative yoga.
+* Experienced practitioners can explore more advanced practices like ashtanga yoga.
