@@ -11,41 +11,21 @@ from woodshed.modules.langchain.document_processing import (
 )
 from woodshed.modules.langchain.query_service import create_qa_chain, process_query
 
-
-# Inline AiForgeConfig
-class AiForgeConfig:
-    PROJECT_NAME = "AIFORGE"
-
-    @property
-    def project_root(self):
-        env_root = os.environ.get(f"{self.PROJECT_NAME}_PROJECT_ROOT")
-        return Path(env_root) if env_root else Path.cwd()
-
-    def _get_directory(self, env_var, default_name):
-        env_dir = os.environ.get(env_var)
-        return Path(env_dir) if env_dir else self.project_root / default_name
-
-    @property
-    def tmp_dir(self):
-        return self._get_directory(f"{self.PROJECT_NAME}_TMP_DIR", "tmp")
-
-    @property
-    def test_data_dir(self):
-        return self._get_directory(f"{self.PROJECT_NAME}_TEST_DATA_DIR", "data/test")
-
-
-# Create a config instance
-config = AiForgeConfig()
+# Define constants for directories
+PROJECT_NAME = "AIFORGE"
+TMP_DIR = Path("/Users/mpaz/workspace/woodshed-ai/tmp")
+# Hardcoded TEST_DATA_DIR
+TEST_DATA_DIR = Path("/Users/mpaz/workspace/woodshed-ai/data/input/articles")
 
 
 @pytest.fixture(scope="module")
 def test_data_dir():
-    return config.test_data_dir
+    return TEST_DATA_DIR
 
 
 @pytest.fixture(scope="module")
 def test_db_dir():
-    db_dir = config.tmp_dir / "chroma-populate"
+    db_dir = TMP_DIR / "chroma-populate"
     if db_dir.exists():
         shutil.rmtree(db_dir)
     return db_dir
@@ -53,7 +33,7 @@ def test_db_dir():
 
 @pytest.fixture(scope="module")
 def sample_documents():
-    return str(config.tmp_dir / "articles")
+    return str(TEST_DATA_DIR)
 
 
 @pytest.fixture(scope="module")

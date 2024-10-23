@@ -298,3 +298,9 @@ cython_debug/
 Thumbs.db
 *.pyc
 /tmp
+
+# Ignore everything in data/output
+data/output/*
+
+# Except README.md
+!data/output/README.md
