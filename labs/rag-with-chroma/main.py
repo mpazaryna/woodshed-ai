@@ -2,14 +2,15 @@
 This module provides a pipeline for processing documents using a retrieval-based
 question-answering system. It loads documents, splits them into chunks, creates
 a vector database, and retrieves answers to queries using a language model.
-"""
 
-from langchain_chroma import Chroma
-from langchain_community.document_loaders import DirectoryLoader, TextLoader
-from langchain_openai import OpenAI, OpenAIEmbeddings
+Usage: from the project root, run `python labs/rag-with-chroma/main.py`
+"""
 
 from langchain.chains import RetrievalQA
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_chroma import Chroma
+from langchain_community.document_loaders import DirectoryLoader, TextLoader
+from langchain_openai import OpenAI, OpenAIEmbeddings
 
 
 def load_documents(path):
@@ -142,9 +143,7 @@ def main():
     """
     Main function to execute the pipeline with predefined parameters.
     """
-    articles_path = (
-        "/Users/mpaz/workspace/woodshed-ai/apps/rag-with-chroma/data/articles"
-    )
+    articles_path = "data/input/articles"
     query = "How much money did Microsoft raise?"
     pipeline(articles_path, query)
 
