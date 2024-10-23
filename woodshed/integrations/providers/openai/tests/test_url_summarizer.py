@@ -1,6 +1,6 @@
 import pytest
 
-from woodshed.providers.openai.url_summarizer import run_call_summarize
+from woodshed.integrations.providers.openai.url_summarizer import run_call_summarize
 
 
 def test_run_call_summarize():

@@ -1,7 +1,7 @@
 import pytest
 from openai import OpenAI
 
-from woodshed.providers.openai.chatbot_simple import (
+from woodshed.integrations.providers.openai.chatbot_simple import (
     generate_ai_response,
     initialize_conversation,
 )

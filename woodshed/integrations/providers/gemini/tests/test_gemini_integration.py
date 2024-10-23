@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from woodshed.providers.gemini.gemini_cli import (
+from woodshed.integrations.providers.gemini.gemini_cli import (
     configure_gemini,
     generate_content,
     get_model,

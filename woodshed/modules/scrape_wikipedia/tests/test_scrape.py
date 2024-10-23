@@ -1,6 +1,6 @@
 import pytest
 
-from woodshed.services.scrape_wikipedia.main import fetch_wikipedia_pages
+from woodshed.modules.scrape_wikipedia.main import fetch_wikipedia_pages
 
 
 @pytest.fixture

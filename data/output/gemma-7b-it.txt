@@ -1,46 +1,48 @@
 # Model: gemma-7b-it
 
-**Yoga** is a holistic practice that originated in ancient India and encompasses physical poses (asanas), breathing techniques (pranayama), meditation, and mindfulness techniques. It is a holistic approach to health and well-being that focuses on physical, mental, and spiritual growth.
+**Yoga is a holistic physical, mental, and spiritual practice that originated in ancient India.** It emphasizes:
 
-**Principles of Yoga:**
+**Physical Practice (Asana)**
+- Sequences of postures that improve flexibility, strength, and balance.
+- Emphasis on correct alignment and breathing.
 
-* **Unity (Yoga)**: The goal is to unite the mind, body, and spirit through conscious awareness.
-* **Non-attachment** The practice encourages letting go of material possessions and emotional attachments.
-* **Present moment awareness** : Staying mindful of the present moment without judgment.
-* **Self-discipline and surrender** : Engaging in the practice with discipline and letting go of resistance.
 
-**Components of Yoga:**
+**Pranayama (Breathing)**
+- Techniques to control and manipulate the breath.
+- Techniques for relaxation and concentration.
 
-**1. Asana (Physical poses)**
-- A series of postures that improve flexibility, balance, and physical strength.
 
-**2. Pranayama (Breathing techniques)**
-- Techniques for controlling and enhancing breath, which helps to calm the mind and body.
+**Meditation**
+- Meditation techniques to quieten the mind, reduce stress, and increase awareness.
 
-**3. Meditation**
-- Practices for cultivating present moment awareness and reducing stress and anxiety.
 
-**4. Mindfulness**
-- Cultivating a state of awareness without judgment to present moment experiences.
+**Spiritual Philosophy**
+- Focuses on the interconnectedness of all things and the pursuit of liberation from suffering.
+- Includes ethical principles such as non-violence, truthfulness, and compassion.
+
+
+**Goals of Yoga:**
+
+- Increased physical flexibility and strength
+- Improved mental focus and concentration
+- Reduced stress and anxiety
+- Spiritual growth and liberation
+
+
+**Types of Yoga:**
+
+- Hatha Yoga (classical yoga focusing on physical postures and breathing)
+- Ashtanga Yoga (a more physically demanding style)
+- Vinyasa Yoga (flow-based yoga with continuous movement)
+- Iyengar Yoga (emphasis on alignment and precision)
+- Kundalini Yoga (focuses on activating energy through specific postures and techniques)
+
 
 **Benefits of Yoga:**
 
-* Improved flexibility and posture
-* Increased strength and balance
-* Reduced stress and anxiety
-* Enhanced mindfulness and awareness
-* Improved sleep quality
-* Reduced pain and stiffness
-* Increased self-confidence and peace of mind
-
-
-**Different Styles of Yoga:**
-
-* Hatha Yoga
-* Ashtanga Yoga
-* Vinyasa Yoga
-* Iyengar Yoga
-* Kundalini Yoga
-
-
-Yoga is suitable for people of all ages and physical abilities. It can be practiced in a studio, at home, or outdoors.
+- Increased flexibility and strength
+- Reduced stress and anxiety
+- Improved cardiovascular health
+- Reduced pain and stiffness
+- Enhanced creativity and cognitive function
+- Spiritual growth and transformation

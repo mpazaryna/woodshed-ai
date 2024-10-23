@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from woodshed.providers.groq import explore_yoga
+from woodshed.integrations.providers.groq import explore_yoga
 
 
 @pytest.mark.integration

@@ -4,8 +4,10 @@ import pytest
 from langchain_community.vectorstores import FAISS
 from pypdf import PdfReader
 
-from woodshed.pdf_chat.main import process_text  # Changed import from app to pdf_chat
-from woodshed.pdf_chat.warning_logger import log_warnings
+from woodshed.modules.pdf_chat.main import (
+    process_text,  # Changed import from app to pdf_chat
+)
+from woodshed.modules.pdf_chat.warning_logger import log_warnings
 
 # Constants
 PDF_SAMPLE_PATH = "/Users/mpaz/workspace/woodshed-ai/data/2403.05568v1.pdf"

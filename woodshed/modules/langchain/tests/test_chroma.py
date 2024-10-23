@@ -5,12 +5,12 @@ from pathlib import Path
 import pytest
 
 from woodshed.config import Config
-from woodshed.services.langchain.document_processing import (
+from woodshed.modules.langchain.document_processing import (
     create_vectordb,
     load_documents,
     split_text,
 )
-from woodshed.services.langchain.query_service import create_qa_chain, process_query
+from woodshed.modules.langchain.query_service import create_qa_chain, process_query
 
 config = Config()
 

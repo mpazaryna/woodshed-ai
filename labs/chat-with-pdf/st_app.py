@@ -18,7 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 import streamlit as st
 
-from woodshed.pdf_chat.main import answer_question, process_pdf
+from woodshed.modules.pdf_chat.main import answer_question, process_pdf
 
 # from pdf_chat import answer_question, process_pdf
 
