@@ -297,7 +297,15 @@ cython_debug/
 # Windows
 Thumbs.db
 *.pyc
-/tmp
+
+
+# Ignore everything in tmp
+tmp/*
+
+# Except README.md
+!tmp/README.md
+
+
 
 # Ignore everything in data/output
 data/output/*
