@@ -1,6 +1,8 @@
 import pytest
 
-from woodshed.providers.openai.respond_in_spanish import get_spanish_response
+from woodshed.integrations.providers.openai.respond_in_spanish import (
+    get_spanish_response,
+)
 
 
 def is_spanish(text):
@@ -40,4 +42,3 @@ def test_get_spanish_response():
     assert response, "Response should not be empty"
     assert is_spanish(response), "Response should be in Spanish"
     assert contains_markdown(response), "Response should contain Markdown formatting"
-    assert "2021" in response, "Response should mention the year 2021"

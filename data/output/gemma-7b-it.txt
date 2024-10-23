@@ -1,52 +1,49 @@
 # Model: gemma-7b-it
 
-**Yoga** is a holistic practice that integrates physical postures (asanas), breathing techniques (pranayama), and meditation to promote physical, mental, and spiritual well-being. It is a holistic system that focuses on physical, mental, and spiritual development. 
+**Yoga** is a holistic system of physical, mental, and spiritual practices that originated in ancient India. It comprises a variety of physical postures (asanas), breathing techniques (pranayama), meditation practices, and philosophical principles.
 
-**Origins:**
 
-* Yoga originated in ancient India and has roots in the philosophical traditions of Hinduism and Buddhism.
-* The word "yoga" comes from the Sanskrit word "yuj," which means "to yoke" or "to unite."
+**Purpose of Yoga:**
+
+* To unite the mind and body
+* To achieve physical and mental harmony
+* To cultivate self-awareness and self-control
+* To experience a connection to something greater than oneself
+
 
 **Components of Yoga:**
 
-**1. Asanas (physical postures)**
-- Sequences of postures that improve flexibility, strength, and balance.
-- Focuses on improving posture, alignment, and physical fitness.
+**1. Asana (Physical Postures)**
+* Sequences of postures that improve flexibility, strength, and balance
 
-**2. Pranayama (breathing techniques)**
-- Techniques for controlling and manipulating the breath.
-- Breathing exercises that promote relaxation, focus, and energy.
+**2. Pranayama (Breathing Techniques)**
+* Techniques for controlling and manipulating the breath, which are used to enhance the practice of meditation and asana
 
 **3. Meditation**
-- Practices that cultivate awareness and inner peace.
-- Techniques for reducing stress, anxiety, and improving concentration.
+* Practices for developing concentration, awareness, and inner peace
+
+
+**4. Philosophy**
+* A philosophical framework that explores the nature of the self, consciousness, and the universe
+
+
+**5. Ethics**
+* Principles of non-violence, truthfulness, and meditation are fundamental to yoga practice
+
 
 **Benefits of Yoga:**
 
-* Increased flexibility and mobility
+* Increased flexibility and range of motion
 * Improved strength and balance
 * Reduced stress and anxiety
-* Improved breathing and respiratory function
-* Increased mindfulness and awareness
+* Increased mental clarity and focus
 * Spiritual growth and transformation
-* Improved physical and mental health
 
-**Types of Yoga:**
 
-* Hatha Yoga
-* Vinyasa Yoga
-* Ashtanga Yoga
-* Iyengar Yoga
-* Kundalini Yoga
+**Different Styles of Yoga:**
 
-**Variations of Yoga:**
-
-* **Restorative Yoga:** Focuses on deep relaxation and stretching.
-* **Prenatal Yoga:** Adapted for pregnant women.
-* **Corporate Yoga:** Tailored for the workplace to reduce stress and improve productivity.
-
-**Who can practice Yoga?**
-
-Yoga is suitable for people of all ages and fitness levels. 
-* Beginners can start with gentle hatha yoga or restorative yoga.
-* Experienced practitioners can explore more advanced practices like ashtanga yoga.
+* Hatha Yoga (focuses on physical postures and breathing)
+* Vinyasa Yoga (continuous flowing movements)
+* Ashtanga Yoga (systematic sequence of postures)
+* Iyengar Yoga (emphasis on alignment and precision)
+* Kundalini Yoga (focuses on awakening energy in the body)

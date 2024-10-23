@@ -2,7 +2,11 @@ import os
 
 import pytest
 
-from woodshed.providers.gemini.main import configure_gemini, generate_content, get_model
+from woodshed.integrations.providers.gemini.main import (
+    configure_gemini,
+    generate_content,
+    get_model,
+)
 
 
 @pytest.fixture(scope="module")
