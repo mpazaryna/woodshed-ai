@@ -5,7 +5,7 @@ import sys
 # Add the root directory to the system path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
-from woodshed.flex_chat.fc import chat_loop, get_providers, select_provider
+from woodshed.modules.flex_chat.main import chat_loop, get_providers, select_provider
 
 
 def main():
