@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## [v1.0.0] - 2024-10-23 12:36:10 -0400
+
+### Features
+
+- langgraph ([`b4b5af9`](https://github.com/mpazaryna/woodshed-ai/commit/b4b5af916ece9a4d4cc0f53c09cfa0023ae01158))
+- pdf chat ([`4979990`](https://github.com/mpazaryna/woodshed-ai/commit/4979990bc08e5d47f134d1dfe1cada7c9b18957e))
+- add runnables into task for teacher_kit ([`4c9f987`](https://github.com/mpazaryna/woodshed-ai/commit/4c9f98791eeb39f2e0f2d092d8b0767775e91fd0))
+- updated json util with a write function ([`4a1af16`](https://github.com/mpazaryna/woodshed-ai/commit/4a1af161e5bd39acbf973ba00cc9b31865ffb9db))
+- additional modules ([`7193745`](https://github.com/mpazaryna/woodshed-ai/commit/7193745e3e2008f88e84ecc17b93e6c4dcdd779c))
+- fastapi ([`04d6968`](https://github.com/mpazaryna/woodshed-ai/commit/04d6968ca9f4ec12a6662d31e501ce17233cad31))
+- add panda example code ([`a45c482`](https://github.com/mpazaryna/woodshed-ai/commit/a45c482a1794fbc298190a171da06437c0cac8bc))
+- simple notebook to access woodshed code ([`86b6023`](https://github.com/mpazaryna/woodshed-ai/commit/86b602347e93c005a925f5912ccbffa80b16d233))
+- refactored module initial commit ([`01140af`](https://github.com/mpazaryna/woodshed-ai/commit/01140af7ba4713bdb4f46750cdac0b5a7c33be2b))
+
+### Bug Fixes
+
+No fix changes in this release.
+
+### Documentation
+
+- additional dev docs ([`2f3f990`](https://github.com/mpazaryna/woodshed-ai/commit/2f3f9901a51375d7acc0ec108fc7301df91751ec))
+
+### Chores
+
+- remove cruft, save readme and update gitignore ([`9409de4`](https://github.com/mpazaryna/woodshed-ai/commit/9409de4021908346a569cd96216c259c1f560e1f))
+- fixed import and file name conflict ([`d2ff7c9`](https://github.com/mpazaryna/woodshed-ai/commit/d2ff7c93229ec6adf04b4f8edccd1edacb1143ef))
+- remove output from the repo ([`9313ff1`](https://github.com/mpazaryna/woodshed-ai/commit/9313ff16957f32465728adeb75907f0029507981))
+- retest flex_chat ([`b486dc4`](https://github.com/mpazaryna/woodshed-ai/commit/b486dc4865aab7d6e8233587c4387211f2428658))
+- refactors ([`8c6170a`](https://github.com/mpazaryna/woodshed-ai/commit/8c6170a8f7801d34167972ff7dfbf059a1b4af6d))
+- add function ([`c42ded2`](https://github.com/mpazaryna/woodshed-ai/commit/c42ded2e7e26746435f09d618b3808aee03df103))
+- refactor tests into local folders ([`35b0b4e`](https://github.com/mpazaryna/woodshed-ai/commit/35b0b4e244d0af617ed58bba7f2b01d91349e8e3))
+- refactors ([`d043c8c`](https://github.com/mpazaryna/woodshed-ai/commit/d043c8cf19fd5126aad3b47f3f292363fd112a09))
+- remove cruft ([`3aae7f4`](https://github.com/mpazaryna/woodshed-ai/commit/3aae7f4a1950a1bab65366eb5c5dab8c7f479b39))
+- continued refactoring ([`a78d333`](https://github.com/mpazaryna/woodshed-ai/commit/a78d333d9a20264dd223ef692888ffd767289022))
+
 ## [v0.4.0] - 2024-10-18 20:47:37 -0400
 
 ### Features
