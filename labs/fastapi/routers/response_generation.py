@@ -9,7 +9,7 @@ from pydantic import BaseModel
 root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 sys.path.insert(0, root_dir)
 
-from woodshed.services.langchain.langchain_service import (
+from woodshed.modules.langchain.langchain_service import (
     get_langchain_service,  # type: ignore
 )
 
