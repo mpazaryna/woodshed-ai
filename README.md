@@ -39,6 +39,6 @@ My recommendation would be:
    - Complete (implements a full feature/fix)
    - Coherent (changes are related to each other)
 
-```bash
-git log --oneline -5
-```
+## Github Desktop
+
+This can be done in github desktop.
