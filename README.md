@@ -11,3 +11,32 @@ We use `tasks.py` to manage common development tasks. This file contains various
 ```shell
 conda env export > environment.yml
 ```
+
+## Gitflow with AI
+
+This is a nuanced question that touches on both practical development workflow and collaboration best practices. Let me share my perspective:
+
+For AI-assisted development specifically:
+
+- Making frequent small commits while working with AI is actually a good practice because:
+  1. It helps you track which changes were AI-suggested vs your own modifications
+  2. It makes it easier to roll back if an AI suggestion breaks something
+  3. It creates natural checkpoints when experimenting with AI suggestions
+
+However, when it comes to pushing to the shared repository:
+
+- Squashing these micro-commits often makes sense because:
+  1. Each commit in the main repo should represent a logical, complete change
+  2. The commit history should tell a clear story to other developers
+  3. Having too many tiny commits can make code review more difficult
+
+My recommendation would be:
+
+1. Make frequent local commits while working with AI
+2. Before pushing, use interactive rebase (`git rebase -i`) to squash related commits into logical units
+3. Each final commit should be:
+   - Working (passes tests)
+   - Complete (implements a full feature/fix)
+   - Coherent (changes are related to each other)
+
+Would you like me to elaborate on any particular aspect of this workflow?
