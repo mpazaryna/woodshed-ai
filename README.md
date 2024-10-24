@@ -47,4 +47,3 @@ This can be done in github desktop.
 - You can select one commit or select multiple commits using Command or Shift.
 - Modify the commit message of your new commit. The commit messages of the selected commits you want to squash are pre-filled into the Summary and Description fields.
 
-Click Squash Commits.
