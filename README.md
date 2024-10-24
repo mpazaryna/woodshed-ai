@@ -39,4 +39,6 @@ My recommendation would be:
    - Complete (implements a full feature/fix)
    - Coherent (changes are related to each other)
 
-Would you like me to elaborate on any particular aspect of this workflow?
+```bash
+git log --oneline -5
+```
