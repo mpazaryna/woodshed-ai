@@ -42,3 +42,9 @@ My recommendation would be:
 ## Github Desktop
 
 This can be done in github desktop.
+
+- Select the commits to squash and drop them on the commit you want to combine them with.
+- You can select one commit or select multiple commits using Command or Shift.
+- Modify the commit message of your new commit. The commit messages of the selected commits you want to squash are pre-filled into the Summary and Description fields.
+
+Click Squash Commits.
