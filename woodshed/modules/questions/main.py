@@ -218,18 +218,22 @@ async def process_single_question(
         f"Calling process_single_question with question: '{question}' and expert_type: '{expert_type}'"
     )
     try:
+        # Define message strings
+        generate_message = "Generating related questions"
+        fetch_message = "Fetching answers"
+
         # Generate related questions with progress indicator
-        task = start_animation("Generating related questions")
+        task = start_animation(generate_message)
         related_questions = await generate_related_questions(
             client, question, expert_type
         )
-        stop_animation(task, len("Generating related questions"))
+        stop_animation(task, len(generate_message))
 
         # Process questions with progress indicator
-        task = start_animation("Fetching answers")
+        task = start_animation(fetch_message)
         all_questions = [question] + related_questions
         results = await process_questions(client, all_questions, expert_type)
-        stop_animation(task, len("Fetching answers"))
+        stop_animation(task, len(fetch_message))
 
         display_results(results)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
