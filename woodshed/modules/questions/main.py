@@ -1,7 +1,7 @@
 """
-Finance Q&A Application (Functional Version)
+Q&A Application (Functional Version)
 
-This module provides a command-line interface for users to ask finance-related questions.
+This module provides a command-line interface for users to ask questions.
 It uses the Perplexity API to generate and answer related questions in parallel, providing
 comprehensive insights into the user's financial query. Results are saved in both JSON
 and Markdown formats in a designated output directory.
@@ -67,6 +67,8 @@ def create_progress_animation() -> Tuple[Callable, Callable]:
         task.cancel()
         sys.stdout.write("\r" + " " * (message_length + MAX_DOTS + 1) + "\r")
         sys.stdout.flush()
+        # Add a newline to ensure the cursor is on a new line
+        print()
 
     return start_animation, stop_animation
 
@@ -79,7 +81,7 @@ def ensure_output_directory(directory: Path):
 async def generate_related_questions(
     client: OpenAI, question: str, expert_type: str
 ) -> List[str]:
-    """Generate related finance questions based on the user's input question."""
+    """Generate related questions based on the user's input question."""
     messages = [
         {
             "role": "system",
@@ -115,7 +117,7 @@ async def get_answer(client: OpenAI, question: str, expert_type: str) -> Dict:
             "role": "system",
             "content": (
                 f"You are a {expert_type}. Provide a clear, concise, and accurate "
-                "answer to the following finance-related question."
+                "answer to the following question."
             ),
         },
         {"role": "user", "content": question},
@@ -164,7 +166,7 @@ def save_results(
 
     # Save Markdown
     with open(md_path, "w") as f:
-        f.write(f"# Finance Q&A Results\n\n")
+        f.write(f"# Q&A Results\n\n")
         f.write(f"*Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n")
         f.write(f"## Original Question\n\n{original_question}\n\n")
         f.write("## Detailed Analysis\n\n")
@@ -269,7 +271,7 @@ def prepare_environment():
 
 
 async def main():
-    """Main function to run the Finance Q&A application."""
+    """Main function to run the Q&A application."""
     try:
         # Setup logging
         log_to_file = input("Log to file? (yes/no): ").strip().lower() == "yes"
@@ -288,7 +290,7 @@ async def main():
         logging.info(f"Results will be saved to: {OUTPUT_DIR}")
 
         while True:
-            print("\nEnter your finance-related question below:")
+            print("\nEnter your question below:")
             question = input("Your question: ").strip()
 
             if not question:
@@ -308,7 +310,7 @@ async def main():
             )
 
             if not get_user_choice():
-                print("\nThank you for using the Finance Q&A Assistant!")
+                print("\nThank you for using the Q&A Assistant!")
                 break
 
     except KeyboardInterrupt:
