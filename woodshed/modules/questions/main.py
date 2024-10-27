@@ -242,16 +242,25 @@ async def process_single_question(
 
 def setup_logging(log_to_file: bool, log_file: str = "app.log"):
     """Set up logging configuration."""
+    log_config = {
+        "level": logging.INFO,
+        "format": "%(asctime)s - %(levelname)s - %(message)s",
+    }
+
     if log_to_file:
-        logging.basicConfig(
-            filename=log_file,
-            level=logging.INFO,
-            format="%(asctime)s - %(levelname)s - %(message)s",
-        )
-    else:
-        logging.basicConfig(
-            level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-        )
+        log_config["filename"] = log_file
+
+    logging.basicConfig(**log_config)
+
+
+def create_openai_client(api_key: str) -> OpenAI:
+    """Create and return an OpenAI client."""
+    return OpenAI(api_key=api_key, base_url="https://api.perplexity.ai")
+
+
+def prepare_environment():
+    """Prepare the environment by ensuring the output directory exists."""
+    ensure_output_directory(OUTPUT_DIR)
 
 
 async def main():
@@ -261,18 +270,16 @@ async def main():
         log_to_file = input("Log to file? (yes/no): ").strip().lower() == "yes"
         setup_logging(log_to_file)
 
-        # Ensure output directory exists
-        ensure_output_directory(OUTPUT_DIR)
+        # Prepare environment
+        prepare_environment()
 
         # Create OpenAI client
-        client = OpenAI(
-            api_key=PERPLEXITY_API_KEY, base_url="https://api.perplexity.ai"
-        )
+        client = create_openai_client(PERPLEXITY_API_KEY)
 
         # Create progress animation functions
         start_animation, stop_animation = create_progress_animation()
 
-        logging.info("Welcome to the Finance Q&A Assistant!")
+        logging.info("Welcome to the Questions Assistant!")
         logging.info(f"Results will be saved to: {OUTPUT_DIR}")
 
         while True:
