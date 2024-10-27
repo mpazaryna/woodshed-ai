@@ -45,14 +45,15 @@ def create_progress_animation() -> Tuple[Callable, Callable]:
         Tuple[Callable, Callable]: (start_animation, stop_animation) functions
     """
     animation_running = False
+    MAX_DOTS = 3  # Maximum number of dots in the animation
 
     def animate(message: str):
         nonlocal animation_running
         dots = 1
         while animation_running:
-            sys.stdout.write(f"\r{message}" + "." * dots + " " * (3 - dots))
+            sys.stdout.write(f"\r{message}" + "." * dots + " " * (MAX_DOTS - dots))
             sys.stdout.flush()
-            dots = (dots % 3) + 1
+            dots = (dots % MAX_DOTS) + 1
             time.sleep(0.5)
 
     def start_animation(message: str) -> asyncio.Task:
@@ -64,7 +65,7 @@ def create_progress_animation() -> Tuple[Callable, Callable]:
         nonlocal animation_running
         animation_running = False
         task.cancel()
-        sys.stdout.write("\r" + " " * (message_length + 4) + "\r")
+        sys.stdout.write("\r" + " " * (message_length + MAX_DOTS + 1) + "\r")
         sys.stdout.flush()
 
     return start_animation, stop_animation
