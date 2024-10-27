@@ -18,6 +18,7 @@ Dependencies:
 
 import asyncio
 import json
+import logging
 import os
 import sys
 import time
@@ -105,7 +106,7 @@ async def generate_related_questions(
 
 async def get_answer(client: OpenAI, question: str, expert_type: str) -> Dict:
     """Get an answer for a specific question using the Perplexity API."""
-    print(
+    logging.info(
         f"Calling get_answer with question: '{question}' and expert_type: '{expert_type}'"
     )
     messages = [
@@ -131,7 +132,7 @@ async def process_questions(
     client: OpenAI, questions: List[str], expert_type: str
 ) -> List[Dict]:
     """Process multiple questions in parallel using the Perplexity API."""
-    print(
+    logging.info(
         f"Calling process_questions with {len(questions)} questions and expert_type: '{expert_type}'"
     )
     tasks = [get_answer(client, question, expert_type) for question in questions]
@@ -174,20 +175,20 @@ def save_results(
             if i < len(results):
                 f.write("---\n\n")
 
-    print(f"\nResults saved to:")
-    print(f"- JSON: {json_path}")
-    print(f"- Markdown: {md_path}")
+    logging.info(f"\nResults saved to:")
+    logging.info(f"- JSON: {json_path}")
+    logging.info(f"- Markdown: {md_path}")
 
 
 def display_results(results: List[Dict]):
     """Display the Q&A results in a formatted way."""
-    print("\nResults:")
-    print("=" * 80)
+    logging.info("\nResults:")
+    logging.info("=" * 80)
     for i, result in enumerate(results, 1):
-        print(f"\nQuestion {i}: {result['question']}")
-        print("-" * 40)
-        print(f"Answer: {result['answer']}")
-        print("=" * 80)
+        logging.info(f"\nQuestion {i}: {result['question']}")
+        logging.info("-" * 40)
+        logging.info(f"Answer: {result['answer']}")
+        logging.info("=" * 80)
 
 
 def get_user_choice() -> bool:
@@ -213,7 +214,7 @@ async def process_single_question(
     stop_animation: Callable,
 ):
     """Process a single question through the Q&A pipeline."""
-    print(
+    logging.info(
         f"Calling process_single_question with question: '{question}' and expert_type: '{expert_type}'"
     )
     try:
@@ -235,13 +236,31 @@ async def process_single_question(
         save_results(OUTPUT_DIR, question, results, timestamp)
 
     except Exception as e:
-        print(f"\nAn error occurred: {str(e)}")
-        print("Please try again or enter 'quit' to exit.")
+        logging.error(f"\nAn error occurred: {str(e)}")
+        logging.error("Please try again or enter 'quit' to exit.")
+
+
+def setup_logging(log_to_file: bool, log_file: str = "app.log"):
+    """Set up logging configuration."""
+    if log_to_file:
+        logging.basicConfig(
+            filename=log_file,
+            level=logging.INFO,
+            format="%(asctime)s - %(levelname)s - %(message)s",
+        )
+    else:
+        logging.basicConfig(
+            level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+        )
 
 
 async def main():
     """Main function to run the Finance Q&A application."""
     try:
+        # Setup logging
+        log_to_file = input("Log to file? (yes/no): ").strip().lower() == "yes"
+        setup_logging(log_to_file)
+
         # Ensure output directory exists
         ensure_output_directory(OUTPUT_DIR)
 
@@ -253,8 +272,8 @@ async def main():
         # Create progress animation functions
         start_animation, stop_animation = create_progress_animation()
 
-        print("Welcome to the Finance Q&A Assistant!")
-        print(f"Results will be saved to: {OUTPUT_DIR}")
+        logging.info("Welcome to the Finance Q&A Assistant!")
+        logging.info(f"Results will be saved to: {OUTPUT_DIR}")
 
         while True:
             print("\nEnter your finance-related question below:")
@@ -281,11 +300,11 @@ async def main():
                 break
 
     except KeyboardInterrupt:
-        print("\n\nProgram interrupted by user. Exiting...")
+        logging.info("\n\nProgram interrupted by user. Exiting...")
     except Exception as e:
-        print(f"\nAn unexpected error occurred: {str(e)}")
+        logging.error(f"\nAn unexpected error occurred: {str(e)}")
     finally:
-        print("\nApplication terminated.")
+        logging.info("\nApplication terminated.")
         exit(0)
 
 
