@@ -1,13 +1,25 @@
 """
-Finance Q&A Application (Functional Version)
+Finance Q&A Application
 
 This module provides a command-line interface for users to ask finance-related questions.
 It uses the Perplexity API to generate and answer related questions in parallel, providing
-comprehensive insights into the user's financial query. Results are saved in both JSON
-and Markdown formats in a designated output directory.
+comprehensive insights into the user's financial query.
 
-Required Environment Variables:
-    PERPLEXITY_API_KEY: API key for accessing the Perplexity API
+Example Usage:
+    # Set environment variable first:
+    # export PERPLEXITY_API_KEY=your_key_here
+    
+    python main.py
+
+Configuration:
+    The application uses an immutable configuration tuple that stores all settings.
+    Configuration is loaded once and cached for subsequent access.
+
+    Default settings:
+    - Output directory: data/output/questions
+    - Log file: app.log
+    - Model: llama-3.1-sonar-large-128k-online
+    - Base URL: https://api.perplexity.ai
 
 Dependencies:
     - openai
@@ -23,29 +35,74 @@ import os
 import sys
 import time
 from datetime import datetime
+from functools import lru_cache
 from pathlib import Path
-from typing import Callable, Dict, List, Tuple
+from typing import Callable, Dict, List, NamedTuple, Tuple
 
 from dotenv import load_dotenv
 from openai import OpenAI
 
-# Load environment variables
-load_dotenv()
-PERPLEXITY_API_KEY = os.getenv("PERPLEXITY_API_KEY")
+# Configuration definition
+ConfigTuple = NamedTuple(
+    "ConfigTuple",
+    [
+        ("perplexity_api_key", str),
+        ("output_dir", Path),
+        ("log_file", str),
+        ("log_to_file", bool),
+        ("model_name", str),
+        ("base_url", str),
+    ],
+)
 
-# Define output directory
-OUTPUT_DIR = Path("data/output/questions")
+
+def load_env_vars() -> str:
+    """
+    Load and validate the Perplexity API key from environment variables.
+
+    Returns:
+        str: The API key
+
+    Raises:
+        ValueError: If PERPLEXITY_API_KEY is not set
+    """
+    load_dotenv()
+    key = os.getenv("PERPLEXITY_API_KEY")
+    if not key:
+        raise ValueError("PERPLEXITY_API_KEY environment variable is required")
+    return key
+
+
+@lru_cache(maxsize=1)
+def get_config(log_to_file: bool = False) -> ConfigTuple:
+    """
+    Get application configuration with caching.
+
+    Args:
+        log_to_file (bool): Whether to log output to a file
+
+    Returns:
+        ConfigTuple: Immutable configuration object containing all settings
+
+    Example:
+        config = get_config(log_to_file=True)
+        print(config.output_dir)  # Access via attribute
+        client = create_openai_client(config.perplexity_api_key)
+    """
+    return ConfigTuple(
+        perplexity_api_key=load_env_vars(),
+        output_dir=Path("data/output/questions"),
+        log_file="app.log",
+        log_to_file=log_to_file,
+        model_name="llama-3.1-sonar-large-128k-online",
+        base_url="https://api.perplexity.ai",
+    )
 
 
 def create_progress_animation() -> Tuple[Callable, Callable]:
-    """
-    Creates progress animation functions.
-
-    Returns:
-        Tuple[Callable, Callable]: (start_animation, stop_animation) functions
-    """
+    """Creates progress animation functions for the CLI interface."""
     animation_running = False
-    MAX_DOTS = 3  # Maximum number of dots in the animation
+    MAX_DOTS = 3
 
     def animate(message: str):
         nonlocal animation_running
@@ -71,15 +128,25 @@ def create_progress_animation() -> Tuple[Callable, Callable]:
     return start_animation, stop_animation
 
 
-def ensure_output_directory(directory: Path):
-    """Create the output directory structure if it doesn't exist."""
-    directory.mkdir(parents=True, exist_ok=True)
+def setup_logging(config: ConfigTuple):
+    """Configure logging based on configuration settings."""
+    log_config = {"level": logging.INFO, "format": "%(message)s"}
+
+    if config.log_to_file:
+        log_config["filename"] = config.log_file
+
+    logging.basicConfig(**log_config)
+
+
+def create_openai_client(config: ConfigTuple) -> OpenAI:
+    """Create an OpenAI client with the provided configuration."""
+    return OpenAI(api_key=config.perplexity_api_key, base_url=config.base_url)
 
 
 async def generate_related_questions(
-    client: OpenAI, question: str, expert_type: str
+    client: OpenAI, question: str, expert_type: str, config: ConfigTuple
 ) -> List[str]:
-    """Generate related finance questions based on the user's input question."""
+    """Generate related finance questions based on the user's input."""
     messages = [
         {
             "role": "system",
@@ -94,7 +161,7 @@ async def generate_related_questions(
     ]
 
     response = client.chat.completions.create(
-        model="llama-3.1-sonar-large-128k-online",
+        model=config.model_name,
         messages=messages,
     )
 
@@ -105,11 +172,10 @@ async def generate_related_questions(
     ]
 
 
-async def get_answer(client: OpenAI, question: str, expert_type: str) -> Dict:
+async def get_answer(
+    client: OpenAI, question: str, expert_type: str, config: ConfigTuple
+) -> Dict:
     """Get an answer for a specific question using the Perplexity API."""
-    logging.info(
-        f"Calling get_answer with question: '{question}' and expert_type: '{expert_type}'"
-    )
     messages = [
         {
             "role": "system",
@@ -122,7 +188,7 @@ async def get_answer(client: OpenAI, question: str, expert_type: str) -> Dict:
     ]
 
     response = client.chat.completions.create(
-        model="llama-3.1-sonar-large-128k-online",
+        model=config.model_name,
         messages=messages,
     )
 
@@ -130,35 +196,33 @@ async def get_answer(client: OpenAI, question: str, expert_type: str) -> Dict:
 
 
 async def process_questions(
-    client: OpenAI, questions: List[str], expert_type: str
+    client: OpenAI, questions: List[str], expert_type: str, config: ConfigTuple
 ) -> List[Dict]:
-    """Process multiple questions in parallel using the Perplexity API."""
-    logging.info(
-        f"Calling process_questions with {len(questions)} questions and expert_type: '{expert_type}'"
-    )
-    tasks = [get_answer(client, question, expert_type) for question in questions]
+    """Process multiple questions in parallel."""
+    tasks = [
+        get_answer(client, question, expert_type, config) for question in questions
+    ]
     return await asyncio.gather(*tasks)
 
 
-def generate_filenames(directory: Path, timestamp: str) -> Tuple[Path, Path]:
-    """Generate filenames for JSON and Markdown outputs."""
-    base_name = f"questions_{timestamp}"
-    return (directory / f"{base_name}.json", directory / f"{base_name}.md")
-
-
 def save_results(
-    directory: Path, original_question: str, results: List[Dict], timestamp: str
+    config: ConfigTuple, original_question: str, results: List[Dict], timestamp: str
 ):
-    """Save the Q&A results to both JSON and Markdown files."""
-    json_path, md_path = generate_filenames(directory, timestamp)
+    """Save results to both JSON and Markdown files."""
+    base_name = f"questions_{timestamp}"
+    json_path = config.output_dir / f"{base_name}.json"
+    md_path = config.output_dir / f"{base_name}.md"
 
-    # Save JSON
     output = {
         "original_question": original_question,
         "timestamp": timestamp,
         "results": results,
     }
 
+    # Ensure output directory exists
+    config.output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Save JSON
     with open(json_path, "w") as f:
         json.dump(output, f, indent=2)
 
@@ -182,7 +246,7 @@ def save_results(
 
 
 def display_results(results: List[Dict]):
-    """Display the Q&A results in a formatted way."""
+    """Display Q&A results in a formatted way."""
     logging.info("\nResults:")
     logging.info("=" * 80)
     for i, result in enumerate(results, 1):
@@ -193,7 +257,7 @@ def display_results(results: List[Dict]):
 
 
 def get_user_choice() -> bool:
-    """Prompt the user to continue or exit."""
+    """Prompt user to continue or exit."""
     while True:
         choice = (
             input("\nWould you like to ask another question? (yes/no): ")
@@ -211,81 +275,49 @@ async def process_single_question(
     client: OpenAI,
     question: str,
     expert_type: str,
+    config: ConfigTuple,
     start_animation: Callable,
     stop_animation: Callable,
 ):
     """Process a single question through the Q&A pipeline."""
-    logging.info(
-        f"Calling process_single_question with question: '{question}' and expert_type: '{expert_type}'"
-    )
     try:
-        # Define message strings
-        generate_message = "Generating related questions"
-        fetch_message = "Fetching answers"
-
-        # Generate related questions with progress indicator
-        task = start_animation(generate_message)
+        # Generate related questions
+        task = start_animation("Generating related questions")
         related_questions = await generate_related_questions(
-            client, question, expert_type
+            client, question, expert_type, config
         )
-        stop_animation(task, len(generate_message))
+        stop_animation(task, len("Generating related questions"))
 
-        # Process questions with progress indicator
-        task = start_animation(fetch_message)
+        # Process all questions
+        task = start_animation("Fetching answers")
         all_questions = [question] + related_questions
-        results = await process_questions(client, all_questions, expert_type)
-        stop_animation(task, len(fetch_message))
+        results = await process_questions(client, all_questions, expert_type, config)
+        stop_animation(task, len("Fetching answers"))
 
+        # Display and save results
         display_results(results)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        save_results(OUTPUT_DIR, question, results, timestamp)
+        save_results(config, question, results, timestamp)
 
     except Exception as e:
         logging.error(f"\nAn error occurred: {str(e)}")
         logging.error("Please try again or enter 'quit' to exit.")
 
 
-def setup_logging(log_to_file: bool, log_file: str = "app.log"):
-    """Set up logging configuration."""
-    log_config = {
-        "level": logging.INFO,
-        "format": "%(asctime)s - %(levelname)s - %(message)s",
-    }
-
-    if log_to_file:
-        log_config["filename"] = log_file
-
-    logging.basicConfig(**log_config)
-
-
-def create_openai_client(api_key: str) -> OpenAI:
-    """Create and return an OpenAI client."""
-    return OpenAI(api_key=api_key, base_url="https://api.perplexity.ai")
-
-
-def prepare_environment():
-    """Prepare the environment by ensuring the output directory exists."""
-    ensure_output_directory(OUTPUT_DIR)
-
-
 async def main():
     """Main function to run the Finance Q&A application."""
     try:
-        # Setup logging
+        # Get user preference for logging and create config
         log_to_file = input("Log to file? (yes/no): ").strip().lower() == "yes"
-        setup_logging(log_to_file)
+        config = get_config(log_to_file)
 
-        # Prepare environment
-        prepare_environment()
-
-        # Create OpenAI client
-        client = create_openai_client(PERPLEXITY_API_KEY)
-
-        # Create progress animation functions
+        # Setup application
+        setup_logging(config)
+        client = create_openai_client(config)
         start_animation, stop_animation = create_progress_animation()
 
-        logging.info("Welcome to the Questions Assistant!")
-        logging.info(f"Results will be saved to: {OUTPUT_DIR}")
+        logging.info("Welcome to the Finance Q&A Assistant!")
+        logging.info(f"Results will be saved to: {config.output_dir}")
 
         while True:
             print("\nEnter your finance-related question below:")
@@ -298,13 +330,12 @@ async def main():
             expert_type = input(
                 "Enter the expert type (e.g., financial expert): "
             ).strip()
-
             if not expert_type:
                 print("Please enter a valid expert type.")
                 continue
 
             await process_single_question(
-                client, question, expert_type, start_animation, stop_animation
+                client, question, expert_type, config, start_animation, stop_animation
             )
 
             if not get_user_choice():
@@ -317,7 +348,7 @@ async def main():
         logging.error(f"\nAn unexpected error occurred: {str(e)}")
     finally:
         logging.info("\nApplication terminated.")
-        exit(0)
+        sys.exit(0)
 
 
 if __name__ == "__main__":
