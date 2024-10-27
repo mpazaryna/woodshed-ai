@@ -123,3 +123,25 @@ def run_finance_test_functional(c):
     c.run(
         "pytest woodshed/integrations/providers/perplexity/finance_qa/implementations/functional"
     )
+
+
+@task
+def run_question_cascade_test(c):
+    """
+    Run the main script of the question_cascade module.
+    """
+    c.run("pytest woodshed/modules/question_cascade/")
+
+
+@task
+def questions(c):
+    """
+    Run the enhanced chunking script for text processing.
+
+    This task executes a script that likely splits large text files into smaller,
+    more manageable chunks, which can be useful for processing or analysis tasks.
+
+    Args:
+        c: The context object provided by Invoke.
+    """
+    c.run("python -m woodshed.modules.questions.main")
