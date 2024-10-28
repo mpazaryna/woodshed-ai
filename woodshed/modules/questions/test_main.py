@@ -9,8 +9,8 @@ from woodshed.modules.questions.main import main
 @pytest.mark.asyncio
 async def test_main_integration():
     # Define test inputs
-    question = "What are the benefits of investing in stocks?"
-    expert_type = "financial advisor"
+    question = "What are the benefits of a senior developer using AI to generate solutions as a freelance consultant?"
+    expert_type = "business consultant"
     log_to_file = False  # Change to True if you want to log to a file
 
     # Set up logging to capture output for verification
