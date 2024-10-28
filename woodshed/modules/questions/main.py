@@ -62,18 +62,9 @@ from typing import Callable, Dict, List, NamedTuple, Tuple
 from dotenv import load_dotenv
 from openai import OpenAI
 
-# Configuration definition
-ConfigTuple = NamedTuple(
-    "ConfigTuple",
-    [
-        ("perplexity_api_key", str),
-        ("output_dir", Path),
-        ("log_file", str),
-        ("log_to_file", bool),
-        ("model_name", str),
-        ("base_url", str),
-    ],
-)
+from .config import ConfigTuple
+from .file_utils import save_results
+from .io_utils import get_expert_type, get_user_choice, get_user_question
 
 
 def load_env_vars() -> str:
@@ -283,54 +274,6 @@ async def process_questions(
     return await asyncio.gather(*tasks)
 
 
-def save_results(
-    config: ConfigTuple, original_question: str, results: List[Dict], timestamp: str
-):
-    """
-    Save results to both JSON and Markdown files.
-
-    Args:
-        config (ConfigTuple): The configuration object.
-        original_question (str): The original question asked by the user.
-        results (List[Dict]): The list of results containing questions and answers.
-        timestamp (str): The timestamp for naming the output files.
-    """
-    base_name = f"questions_{timestamp}"
-    json_path = config.output_dir / f"{base_name}.json"
-    md_path = config.output_dir / f"{base_name}.md"
-
-    output = {
-        "original_question": original_question,
-        "timestamp": timestamp,
-        "results": results,
-    }
-
-    # Ensure output directory exists
-    config.output_dir.mkdir(parents=True, exist_ok=True)
-
-    # Save JSON
-    with open(json_path, "w") as f:
-        json.dump(output, f, indent=2)
-
-    # Save Markdown
-    with open(md_path, "w") as f:
-        f.write(f"# Q&A Results\n\n")
-        f.write(f"*Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n")
-        f.write(f"## Original Question\n\n{original_question}\n\n")
-        f.write("## Detailed Analysis\n\n")
-
-        for i, result in enumerate(results, 1):
-            f.write(f"### Question {i}\n\n")
-            f.write(f"**Q:** {result['question']}\n\n")
-            f.write(f"**A:** {result['answer']}\n\n")
-            if i < len(results):
-                f.write("---\n\n")
-
-    logging.info(f"\nResults saved to:")
-    logging.info(f"- JSON: {json_path}")
-    logging.info(f"- Markdown: {md_path}")
-
-
 def display_results(results: List[Dict]):
     """
     Display Q&A results in a formatted way.
@@ -345,26 +288,6 @@ def display_results(results: List[Dict]):
         logging.info("-" * 40)
         logging.info(f"Answer: {result['answer']}")
         logging.info("=" * 80)
-
-
-def get_user_choice() -> bool:
-    """
-    Prompt user to continue or exit.
-
-    Returns:
-        bool: True if the user wants to ask another question, False otherwise.
-    """
-    while True:
-        choice = (
-            input("\nWould you like to ask another question? (yes/no): ")
-            .lower()
-            .strip()
-        )
-        if choice in ["yes", "y"]:
-            return True
-        elif choice in ["no", "n"]:
-            return False
-        print("Please enter 'yes' or 'no'")
 
 
 async def process_single_question(
@@ -454,35 +377,6 @@ async def main():
     finally:
         logging.info("\nApplication terminated.")
         sys.exit(0)
-
-
-def get_user_question() -> str:
-    """
-    Prompt the user to enter a question and validate the input.
-
-    Returns:
-        str: The validated question input by the user.
-    """
-    while True:
-        print("\nEnter your question below:")
-        question = input("Your question: ").strip()
-        if question:
-            return question
-        print("Please enter a valid question.")
-
-
-def get_expert_type() -> str:
-    """
-    Prompt the user to enter the expert type and validate the input.
-
-    Returns:
-        str: The validated expert type input by the user.
-    """
-    while True:
-        expert_type = input("Enter the expert type (e.g., financial expert): ").strip()
-        if expert_type:
-            return expert_type
-        print("Please enter a valid expert type.")
 
 
 if __name__ == "__main__":
