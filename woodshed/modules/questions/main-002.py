@@ -1,7 +1,7 @@
 """
-Q&A Application (Functional Version)
+Finance Q&A Application
 
-This module provides a command-line interface for users to ask questions.
+This module provides a command-line interface for users to ask finance-related questions.
 It uses the Perplexity API to generate and answer related questions in parallel, providing
 comprehensive insights into the user's financial query.
 
@@ -124,8 +124,6 @@ def create_progress_animation() -> Tuple[Callable, Callable]:
         task.cancel()
         sys.stdout.write("\r" + " " * (message_length + MAX_DOTS + 1) + "\r")
         sys.stdout.flush()
-        # Add a newline to ensure the cursor is on a new line
-        print()
 
     return start_animation, stop_animation
 
@@ -148,7 +146,7 @@ def create_openai_client(config: ConfigTuple) -> OpenAI:
 async def generate_related_questions(
     client: OpenAI, question: str, expert_type: str, config: ConfigTuple
 ) -> List[str]:
-    """Generate related questions based on the user's input question."""
+    """Generate related finance questions based on the user's input."""
     messages = [
         {
             "role": "system",
@@ -183,7 +181,7 @@ async def get_answer(
             "role": "system",
             "content": (
                 f"You are a {expert_type}. Provide a clear, concise, and accurate "
-                "answer to the following question."
+                "answer to the following finance-related question."
             ),
         },
         {"role": "user", "content": question},
@@ -230,7 +228,7 @@ def save_results(
 
     # Save Markdown
     with open(md_path, "w") as f:
-        f.write(f"# Q&A Results\n\n")
+        f.write(f"# Finance Q&A Results\n\n")
         f.write(f"*Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n\n")
         f.write(f"## Original Question\n\n{original_question}\n\n")
         f.write("## Detailed Analysis\n\n")
@@ -307,7 +305,7 @@ async def process_single_question(
 
 
 async def main():
-    """Main function to run the Q&A application."""
+    """Main function to run the Finance Q&A application."""
     try:
         # Get user preference for logging and create config
         log_to_file = input("Log to file? (yes/no): ").strip().lower() == "yes"
@@ -322,15 +320,26 @@ async def main():
         logging.info(f"Results will be saved to: {config.output_dir}")
 
         while True:
-            question = get_user_question()
-            expert_type = get_expert_type()
+            print("\nEnter your finance-related question below:")
+            question = input("Your question: ").strip()
+
+            if not question:
+                print("Please enter a valid question.")
+                continue
+
+            expert_type = input(
+                "Enter the expert type (e.g., financial expert): "
+            ).strip()
+            if not expert_type:
+                print("Please enter a valid expert type.")
+                continue
 
             await process_single_question(
                 client, question, expert_type, config, start_animation, stop_animation
             )
 
             if not get_user_choice():
-                print("\nThank you for using the Q&A Assistant!")
+                print("\nThank you for using the Finance Q&A Assistant!")
                 break
 
     except KeyboardInterrupt:
@@ -340,25 +349,6 @@ async def main():
     finally:
         logging.info("\nApplication terminated.")
         sys.exit(0)
-
-
-def get_user_question() -> str:
-    """Prompt the user to enter a question and validate the input."""
-    while True:
-        print("\nEnter your question below:")
-        question = input("Your question: ").strip()
-        if question:
-            return question
-        print("Please enter a valid question.")
-
-
-def get_expert_type() -> str:
-    """Prompt the user to enter the expert type and validate the input."""
-    while True:
-        expert_type = input("Enter the expert type (e.g., financial expert): ").strip()
-        if expert_type:
-            return expert_type
-        print("Please enter a valid expert type.")
 
 
 if __name__ == "__main__":
