@@ -293,7 +293,7 @@ async def process_single_question(
         logging.error("Please try again or enter 'quit' to exit.")
 
 
-async def main():
+async def main(question: str = None, expert_type: str = None, log_to_file: bool = None):
     """
     Main function to run the Q&A application.
 
@@ -301,13 +301,20 @@ async def main():
     user input, processing questions, and displaying results. It handles
     logging setup and manages the OpenAI client.
 
+    Args:
+        question (str): The user's question (optional).
+        expert_type (str): The type of expert (optional).
+        log_to_file (bool): Whether to log output to a file (optional).
+
     Raises:
         KeyboardInterrupt: If the user interrupts the program.
         Exception: For any unexpected errors during execution.
     """
     try:
-        # Get user preference for logging and create config
-        log_to_file = input("Log to file? (yes/no): ").strip().lower() == "yes"
+        # Get user preference for logging if not provided
+        if log_to_file is None:
+            log_to_file = input("Log to file? (yes/no): ").strip().lower() == "yes"
+
         config = get_config(log_to_file)
 
         # Setup application
@@ -318,17 +325,17 @@ async def main():
         logging.info("Welcome to the Q&A Assistant!")
         logging.info(f"Results will be saved to: {config.output_dir}")
 
-        while True:
+        # Use provided question and expert_type or prompt the user
+        if question is None:
             question = get_user_question()
+        if expert_type is None:
             expert_type = get_expert_type()
 
-            await process_single_question(
-                client, question, expert_type, config, start_animation, stop_animation
-            )
+        await process_single_question(
+            client, question, expert_type, config, start_animation, stop_animation
+        )
 
-            if not get_user_choice():
-                print("\nThank you for using the Q&A Assistant!")
-                break
+        print("\nThank you for using the Q&A Assistant!")
 
     except KeyboardInterrupt:
         logging.info("\n\nProgram interrupted by user. Exiting...")
@@ -336,7 +343,6 @@ async def main():
         logging.error(f"\nAn unexpected error occurred: {str(e)}")
     finally:
         logging.info("\nApplication terminated.")
-        sys.exit(0)
 
 
 if __name__ == "__main__":
