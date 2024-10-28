@@ -1,51 +1,9 @@
 """
-Q&A Application (Functional Version)
+Q&A Application (Parameter Object Version)
 
 This module provides a command-line interface for users to ask questions.
 It uses the Perplexity API to generate and answer related questions in parallel, providing
 comprehensive insights into the user's financial query.
-
-Example Usage:
-    # Set environment variable first:
-    # export PERPLEXITY_API_KEY=your_key_here
-    
-    python main.py
-
-Configuration:
-    The application uses an immutable configuration tuple that stores all settings.
-    Configuration is loaded once and cached for subsequent access.
-
-    Default settings:
-    - Output directory: data/output/questions
-    - Log file: app.log
-    - Model: llama-3.1-sonar-large-128k-online
-    - Base URL: https://api.perplexity.ai
-
-Dependencies:
-    - openai
-    - python-dotenv
-    - asyncio
-    - aiohttp
-
-Functions:
-    - load_env_vars: Load and validate the Perplexity API key from environment variables.
-    - get_config: Get application configuration with caching.
-    - create_progress_animation: Creates progress animation functions for the CLI interface.
-    - setup_logging: Configure logging based on configuration settings.
-    - create_openai_client: Create an OpenAI client with the provided configuration.
-    - generate_related_questions: Generate related questions based on the user's input question.
-    - get_answer: Get an answer for a specific question using the Perplexity API.
-    - process_questions: Process multiple questions in parallel.
-    - save_results: Save results to both JSON and Markdown files.
-    - display_results: Display Q&A results in a formatted way.
-    - get_user_choice: Prompt user to continue or exit.
-    - process_single_question: Process a single question through the Q&A pipeline.
-    - main: Main function to run the Q&A application.
-    - get_user_question: Prompt the user to enter a question and validate the input.
-    - get_expert_type: Prompt the user to enter the expert type and validate the input.
-
-Classes:
-    - ConfigTuple: Named tuple that defines the configuration settings for the application.
 """
 
 import asyncio
@@ -54,6 +12,7 @@ import logging
 import os
 import sys
 import time
+from dataclasses import dataclass
 from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
@@ -72,6 +31,65 @@ from .io_utils import (
     get_user_question,
 )
 from .prompt_utils import get_prompt
+
+
+@dataclass
+class QuestionProcessingContext:
+    """
+    Encapsulates all parameters needed for processing a single question in the Q&A pipeline.
+
+    This class consolidates related parameters that are commonly passed together through
+    the question processing pipeline. Using a parameter object pattern provides several
+    key benefits:
+
+    1. Improved Readability:
+       - Creates a cleaner, more focused function signature
+       - Makes parameter relationships explicit through the data class structure
+       - Clearly shows that these parameters form a cohesive unit for question processing
+
+    2. Better Maintainability:
+       - Centralizes parameter modifications in one place
+       - Simplifies adding new parameters without changing function signatures
+       - Provides a natural location for parameter validation logic
+       - Reduces the likelihood of parameter ordering errors
+
+    3. More Flexible Evolution:
+       - Allows adding methods to the data class for common parameter operations
+       - Simplifies passing context through multiple layers of the application
+       - Enables adding optional parameters without breaking existing code
+       - Makes it easier to version and modify the parameter set
+
+    4. Documentation Benefits:
+       - Centralizes parameter documentation in one location
+       - Makes parameter relationships more explicit
+       - Consolidates type hints and documentation
+
+    Attributes:
+        client (OpenAI): The OpenAI client instance for making API calls
+        question (str): The user's input question to be processed
+        expert_type (str): The type of expert providing the answer (e.g., "financial advisor")
+        config (ConfigTuple): Configuration settings for the application
+        start_animation (Callable): Function to start the progress animation
+        stop_animation (Callable): Function to stop the progress animation
+
+    Example:
+        context = QuestionProcessingContext(
+            client=create_openai_client(config),
+            question="What are the tax implications of remote work?",
+            expert_type="tax expert",
+            config=config,
+            start_animation=animation_start_fn,
+            stop_animation=animation_stop_fn
+        )
+        await process_single_question(context)
+    """
+
+    client: OpenAI
+    question: str
+    expert_type: str
+    config: ConfigTuple
+    start_animation: Callable
+    stop_animation: Callable
 
 
 def load_env_vars() -> str:
@@ -101,11 +119,6 @@ def get_config(log_to_file: bool = False) -> ConfigTuple:
 
     Returns:
         ConfigTuple: Immutable configuration object containing all settings
-
-    Example:
-        config = get_config(log_to_file=True)
-        print(config.output_dir)  # Access via attribute
-        client = create_openai_client(config.perplexity_api_key)
     """
     return ConfigTuple(
         perplexity_api_key=load_env_vars(),
@@ -115,21 +128,6 @@ def get_config(log_to_file: bool = False) -> ConfigTuple:
         model_name="llama-3.1-sonar-large-128k-online",
         base_url="https://api.perplexity.ai",
     )
-
-
-def setup_logging(config: ConfigTuple):
-    """
-    Configure logging based on configuration settings.
-
-    Args:
-        config (ConfigTuple): The configuration object containing logging settings.
-    """
-    log_config = {"level": logging.INFO, "format": "%(message)s"}
-
-    if config.log_to_file:
-        log_config["filename"] = config.log_file
-
-    logging.basicConfig(**log_config)
 
 
 def create_openai_client(config: ConfigTuple) -> OpenAI:
@@ -146,34 +144,28 @@ def create_openai_client(config: ConfigTuple) -> OpenAI:
 
 
 async def generate_related_questions(
-    client: OpenAI,
-    question: str,
-    expert_type: str,
-    config: ConfigTuple,
+    context: QuestionProcessingContext,
     prompt_getter: Callable[[str], str] = get_prompt,
 ) -> List[str]:
     """
     Generate related questions based on the user's input question.
 
     Args:
-        client (OpenAI): The OpenAI client instance.
-        question (str): The user's input question.
-        expert_type (str): The type of expert to generate questions for.
-        config (ConfigTuple): The configuration object.
-        prompt_getter (Callable[[str], str]): Function to get the expert prompt.
+        context (QuestionProcessingContext): The context object containing all necessary parameters
+        prompt_getter (Callable[[str], str]): Function to get the expert prompt
 
     Returns:
-        List[str]: A list of related questions generated by the model.
+        List[str]: A list of related questions generated by the model
     """
-    expert_prompt = prompt_getter(expert_type)
+    expert_prompt = prompt_getter(context.expert_type)
 
     messages = [
         {"role": "system", "content": expert_prompt},
-        {"role": "user", "content": question},
+        {"role": "user", "content": context.question},
     ]
 
-    response = client.chat.completions.create(
-        model=config.model_name,
+    response = context.client.chat.completions.create(
+        model=context.config.model_name,
         messages=messages,
     )
 
@@ -184,60 +176,30 @@ async def generate_related_questions(
     ]
 
 
-async def get_answer(
-    client: OpenAI, question: str, expert_type: str, config: ConfigTuple
-) -> Dict:
+async def get_answer(context: QuestionProcessingContext, question: str) -> Dict:
     """
     Get an answer for a specific question using the Perplexity API.
 
-    This function intentionally uses a simple expert context prompt, as it's part of a two-stage
-    Q&A process where:
-    1. Complex question generation (generate_related_questions) creates sophisticated,
-       domain-specific questions using detailed expert prompts
-    2. Simple answer generation (this function) provides clear, focused answers to those
-       well-crafted questions
-
-    This separation of concerns is a deliberate design pattern that allows for:
-    - Rich, expert-specific exploration through question generation
-    - Consistent, clear response style across different expert types
-    - Focused answers that directly address the carefully crafted questions
-
     Args:
-        client (OpenAI): The OpenAI client instance for making API calls.
-        question (str): The user's input question or a generated follow-up question.
-        expert_type (str): The type of expert (e.g., "financial advisor", "tax expert")
-            providing the answer. Used to set the context for the response.
-        config (ConfigTuple): The configuration object containing API settings and model
-            preferences.
+        context (QuestionProcessingContext): The context object containing all necessary parameters
+        question (str): The specific question to answer
 
     Returns:
-        Dict: A dictionary containing:
-            - question (str): The original question
-            - answer (str): The generated expert answer
-
-    Example:
-        client = create_openai_client(config)
-        result = await get_answer(
-            client,
-            "What are the tax implications of remote work?",
-            "tax expert",
-            config
-        )
-        print(result['answer'])
+        Dict: A dictionary containing the question and its answer
     """
     messages = [
         {
             "role": "system",
             "content": (
-                f"You are a {expert_type}. Provide a clear, concise, and accurate "
+                f"You are a {context.expert_type}. Provide a clear, concise, and accurate "
                 "answer to the following question."
             ),
         },
         {"role": "user", "content": question},
     ]
 
-    response = client.chat.completions.create(
-        model=config.model_name,
+    response = context.client.chat.completions.create(
+        model=context.config.model_name,
         messages=messages,
     )
 
@@ -245,63 +207,46 @@ async def get_answer(
 
 
 async def process_questions(
-    client: OpenAI, questions: List[str], expert_type: str, config: ConfigTuple
+    context: QuestionProcessingContext, questions: List[str]
 ) -> List[Dict]:
     """
     Process multiple questions in parallel.
 
     Args:
-        client (OpenAI): The OpenAI client instance.
-        questions (List[str]): A list of questions to process.
-        expert_type (str): The type of expert for the questions.
-        config (ConfigTuple): The configuration object.
+        context (QuestionProcessingContext): The context object containing all necessary parameters
+        questions (List[str]): A list of questions to process
 
     Returns:
-        List[Dict]: A list of dictionaries containing questions and their answers.
+        List[Dict]: A list of dictionaries containing questions and their answers
     """
-    tasks = [
-        get_answer(client, question, expert_type, config) for question in questions
-    ]
+    tasks = [get_answer(context, question) for question in questions]
     return await asyncio.gather(*tasks)
 
 
-async def process_single_question(
-    client: OpenAI,
-    question: str,
-    expert_type: str,
-    config: ConfigTuple,
-    start_animation: Callable,
-    stop_animation: Callable,
-):
+async def process_single_question(context: QuestionProcessingContext):
     """
     Process a single question through the Q&A pipeline.
 
     Args:
-        client (OpenAI): The OpenAI client instance.
-        question (str): The user's input question.
-        expert_type (str): The type of expert for the question.
-        config (ConfigTuple): The configuration object.
-        start_animation (Callable): Function to start the progress animation.
-        stop_animation (Callable): Function to stop the progress animation.
+        context (QuestionProcessingContext): Object containing all necessary parameters
+            for processing the question
     """
     try:
         # Generate related questions
-        task = start_animation("Generating related questions")
-        related_questions = await generate_related_questions(
-            client, question, expert_type, config
-        )
-        stop_animation(task, len("Generating related questions"))
+        task = context.start_animation("Generating related questions")
+        related_questions = await generate_related_questions(context)
+        context.stop_animation(task, len("Generating related questions"))
 
         # Process all questions
-        task = start_animation("Fetching answers")
-        all_questions = [question] + related_questions
-        results = await process_questions(client, all_questions, expert_type, config)
-        stop_animation(task, len("Fetching answers"))
+        task = context.start_animation("Fetching answers")
+        all_questions = [context.question] + related_questions
+        results = await process_questions(context, all_questions)
+        context.stop_animation(task, len("Fetching answers"))
 
         # Display and save results
         display_results(results)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        save_results(config, question, results, timestamp)
+        save_results(context.config, context.question, results, timestamp)
 
     except Exception as e:
         logging.error(f"\nAn error occurred: {str(e)}")
@@ -313,9 +258,9 @@ async def pipeline(question: str, expert_type: str, config: ConfigTuple):
     Core processing logic for the Q&A application.
 
     Args:
-        question (str): The user's question.
-        expert_type (str): The type of expert.
-        config (ConfigTuple): The configuration object.
+        question (str): The user's question
+        expert_type (str): The type of expert
+        config (ConfigTuple): The configuration object
     """
     client = create_openai_client(config)
     start_animation, stop_animation = create_progress_animation()
@@ -323,9 +268,16 @@ async def pipeline(question: str, expert_type: str, config: ConfigTuple):
     logging.info("Welcome to the Q&A Assistant!")
     logging.info(f"Results will be saved to: {config.output_dir}")
 
-    await process_single_question(
-        client, question, expert_type, config, start_animation, stop_animation
+    context = QuestionProcessingContext(
+        client=client,
+        question=question,
+        expert_type=expert_type,
+        config=config,
+        start_animation=start_animation,
+        stop_animation=stop_animation,
     )
+
+    await process_single_question(context)
 
     print("\nThank you for using the Q&A Assistant!")
 
@@ -334,14 +286,10 @@ async def main(question: str = None, expert_type: str = None, log_to_file: bool 
     """
     Main function to run the Q&A application.
 
-    This function orchestrates the entire flow of the application, including
-    user input, processing questions, and displaying results. It handles
-    logging setup and manages the OpenAI client.
-
     Args:
-        question (str): The user's question (optional).
-        expert_type (str): The type of expert (optional).
-        log_to_file (bool): Whether to log output to a file (optional).
+        question (str, optional): The user's question
+        expert_type (str, optional): The type of expert
+        log_to_file (bool, optional): Whether to log output to a file
     """
     try:
         if log_to_file is None:
@@ -349,7 +297,6 @@ async def main(question: str = None, expert_type: str = None, log_to_file: bool 
 
         config = get_config(log_to_file)
 
-        # Use provided question and expert_type or prompt the user
         if question is None:
             question = get_user_question()
         if expert_type is None:
