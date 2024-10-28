@@ -62,6 +62,7 @@ from typing import Callable, Dict, List, NamedTuple, Tuple
 from dotenv import load_dotenv
 from openai import OpenAI
 
+from .animation_utils import create_progress_animation
 from .config import ConfigTuple
 from .file_utils import save_results
 from .io_utils import get_expert_type, get_user_choice, get_user_question
@@ -108,47 +109,6 @@ def get_config(log_to_file: bool = False) -> ConfigTuple:
         model_name="llama-3.1-sonar-large-128k-online",
         base_url="https://api.perplexity.ai",
     )
-
-
-def create_progress_animation() -> Tuple[Callable, Callable]:
-    """
-    Creates progress animation functions for the CLI interface.
-
-    Returns:
-        Tuple[Callable, Callable]: A tuple containing the start and stop animation functions.
-    """
-    animation_running = False
-    MAX_ANIMATION_DOTS = 3
-    ANIMATION_SLEEP_DURATION = 0.5  # Duration for each animation dot
-
-    def animate(message: str):
-        """Animate the progress indicator."""
-        nonlocal animation_running
-        dots = 1
-        while animation_running:
-            sys.stdout.write(
-                f"\r{message}" + "." * dots + " " * (MAX_ANIMATION_DOTS - dots)
-            )
-            sys.stdout.flush()
-            dots = (dots % MAX_ANIMATION_DOTS) + 1
-            time.sleep(ANIMATION_SLEEP_DURATION)
-
-    def start_animation(message: str) -> asyncio.Task:
-        """Start the animation in a separate thread."""
-        nonlocal animation_running
-        animation_running = True
-        return asyncio.create_task(asyncio.to_thread(animate, message))
-
-    def stop_animation(task: asyncio.Task, message_length: int):
-        """Stop the animation and clear the line."""
-        nonlocal animation_running
-        animation_running = False
-        task.cancel()
-        sys.stdout.write("\r" + " " * (message_length + MAX_ANIMATION_DOTS + 1) + "\r")
-        sys.stdout.flush()
-        print()
-
-    return start_animation, stop_animation
 
 
 def setup_logging(config: ConfigTuple):
