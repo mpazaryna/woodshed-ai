@@ -102,15 +102,17 @@ def get_config(log_to_file: bool = False) -> ConfigTuple:
 def create_progress_animation() -> Tuple[Callable, Callable]:
     """Creates progress animation functions for the CLI interface."""
     animation_running = False
-    MAX_DOTS = 3
+    MAX_ANIMATION_DOTS = 3  # Renamed from MAX_DOTS
 
     def animate(message: str):
         nonlocal animation_running
         dots = 1
         while animation_running:
-            sys.stdout.write(f"\r{message}" + "." * dots + " " * (MAX_DOTS - dots))
+            sys.stdout.write(
+                f"\r{message}" + "." * dots + " " * (MAX_ANIMATION_DOTS - dots)
+            )
             sys.stdout.flush()
-            dots = (dots % MAX_DOTS) + 1
+            dots = (dots % MAX_ANIMATION_DOTS) + 1
             time.sleep(0.5)
 
     def start_animation(message: str) -> asyncio.Task:
@@ -122,7 +124,7 @@ def create_progress_animation() -> Tuple[Callable, Callable]:
         nonlocal animation_running
         animation_running = False
         task.cancel()
-        sys.stdout.write("\r" + " " * (message_length + MAX_DOTS + 1) + "\r")
+        sys.stdout.write("\r" + " " * (message_length + MAX_ANIMATION_DOTS + 1) + "\r")
         sys.stdout.flush()
         # Add a newline to ensure the cursor is on a new line
         print()
