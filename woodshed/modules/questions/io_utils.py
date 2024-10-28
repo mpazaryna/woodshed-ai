@@ -1,3 +1,7 @@
+import logging
+from typing import Dict, List
+
+
 def get_user_question() -> str:
     """Prompt the user to enter a question and validate the input."""
     while True:
@@ -30,3 +34,19 @@ def get_user_choice() -> bool:
         elif choice in ["no", "n"]:
             return False
         print("Please enter 'yes' or 'no'")
+
+
+def display_results(results: List[Dict]):
+    """
+    Display Q&A results in a formatted way.
+
+    Args:
+        results (List[Dict]): The list of results containing questions and answers.
+    """
+    logging.info("\nResults:")
+    logging.info("=" * 80)
+    for i, result in enumerate(results, 1):
+        logging.info(f"\nQuestion {i}: {result['question']}")
+        logging.info("-" * 40)
+        logging.info(f"Answer: {result['answer']}")
+        logging.info("=" * 80)

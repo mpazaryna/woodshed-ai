@@ -65,7 +65,12 @@ from openai import OpenAI
 from .animation_utils import create_progress_animation
 from .config import ConfigTuple
 from .file_utils import save_results
-from .io_utils import get_expert_type, get_user_choice, get_user_question
+from .io_utils import (
+    display_results,
+    get_expert_type,
+    get_user_choice,
+    get_user_question,
+)
 
 
 def load_env_vars() -> str:
@@ -234,22 +239,6 @@ async def process_questions(
     return await asyncio.gather(*tasks)
 
 
-def display_results(results: List[Dict]):
-    """
-    Display Q&A results in a formatted way.
-
-    Args:
-        results (List[Dict]): The list of results containing questions and answers.
-    """
-    logging.info("\nResults:")
-    logging.info("=" * 80)
-    for i, result in enumerate(results, 1):
-        logging.info(f"\nQuestion {i}: {result['question']}")
-        logging.info("-" * 40)
-        logging.info(f"Answer: {result['answer']}")
-        logging.info("=" * 80)
-
-
 async def process_single_question(
     client: OpenAI,
     question: str,
@@ -293,6 +282,28 @@ async def process_single_question(
         logging.error("Please try again or enter 'quit' to exit.")
 
 
+async def pipeline(question: str, expert_type: str, config: ConfigTuple):
+    """
+    Core processing logic for the Q&A application.
+
+    Args:
+        question (str): The user's question.
+        expert_type (str): The type of expert.
+        config (ConfigTuple): The configuration object.
+    """
+    client = create_openai_client(config)
+    start_animation, stop_animation = create_progress_animation()
+
+    logging.info("Welcome to the Q&A Assistant!")
+    logging.info(f"Results will be saved to: {config.output_dir}")
+
+    await process_single_question(
+        client, question, expert_type, config, start_animation, stop_animation
+    )
+
+    print("\nThank you for using the Q&A Assistant!")
+
+
 async def main(question: str = None, expert_type: str = None, log_to_file: bool = None):
     """
     Main function to run the Q&A application.
@@ -305,25 +316,12 @@ async def main(question: str = None, expert_type: str = None, log_to_file: bool 
         question (str): The user's question (optional).
         expert_type (str): The type of expert (optional).
         log_to_file (bool): Whether to log output to a file (optional).
-
-    Raises:
-        KeyboardInterrupt: If the user interrupts the program.
-        Exception: For any unexpected errors during execution.
     """
     try:
-        # Get user preference for logging if not provided
         if log_to_file is None:
             log_to_file = input("Log to file? (yes/no): ").strip().lower() == "yes"
 
         config = get_config(log_to_file)
-
-        # Setup application
-        setup_logging(config)
-        client = create_openai_client(config)
-        start_animation, stop_animation = create_progress_animation()
-
-        logging.info("Welcome to the Q&A Assistant!")
-        logging.info(f"Results will be saved to: {config.output_dir}")
 
         # Use provided question and expert_type or prompt the user
         if question is None:
@@ -331,11 +329,7 @@ async def main(question: str = None, expert_type: str = None, log_to_file: bool 
         if expert_type is None:
             expert_type = get_expert_type()
 
-        await process_single_question(
-            client, question, expert_type, config, start_animation, stop_animation
-        )
-
-        print("\nThank you for using the Q&A Assistant!")
+        await pipeline(question, expert_type, config)
 
     except KeyboardInterrupt:
         logging.info("\n\nProgram interrupted by user. Exiting...")
