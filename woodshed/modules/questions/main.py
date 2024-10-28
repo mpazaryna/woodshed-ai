@@ -263,14 +263,18 @@ def display_results(results: List[Dict]):
 def get_user_choice() -> bool:
     """Prompt user to continue or exit."""
     while True:
-        choice = (
+        # Inline the choice variable
+        if (
             input("\nWould you like to ask another question? (yes/no): ")
             .lower()
             .strip()
-        )
-        if choice in ["yes", "y"]:
+        ) in ["yes", "y"]:
             return True
-        if choice in ["no", "n"]:
+        if (
+            input("\nWould you like to ask another question? (yes/no): ")
+            .lower()
+            .strip()
+        ) in ["no", "n"]:
             return False
         print("Please enter 'yes' or 'no'")
 
